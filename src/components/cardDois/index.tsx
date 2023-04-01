@@ -1,6 +1,6 @@
-import { CardBox } from "./style"
+import { CardBoxDois } from "./style"
 
-interface ICardUm {
+interface ICardDois {
     
         h3: string;
         h2: string;
@@ -13,16 +13,16 @@ interface ICardUm {
     
 }
 
-export function CardUm ({h2, h1, h3, img, backgroundColor}: ICardUm) {
+export function CardDois ({h2, h1, h3, img, backgroundColor}: ICardDois) {
     return (
-        <CardBox backgroundColor={backgroundColor} >
+        <CardBoxDois backgroundColor={backgroundColor} >
             
             <h3>{h3}</h3> 
             <h2>{h2}</h2>
             <h1>{h1}</h1>
             <img src={img} alt="" />
             
-            </CardBox>
+            </CardBoxDois>
         
         
     )

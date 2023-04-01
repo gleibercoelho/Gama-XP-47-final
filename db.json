@@ -1,0 +1,34 @@
+{
+    "login":{
+        "name": "Gleiber Coelho",
+        "imageUser": "https://github.com/gleibercoelho.png",
+        "emailUser": "gleiberfelipe@hotmail.com"
+    },
+
+    "": [
+        {
+            "id": 0,
+            "title": "Vendas",
+            "description": "Gerencie suas vendas e saidas de estoque",
+            "goTo": "/product"
+        },
+        {
+           "id": 1,
+            "title": "Gerencia estoquie",
+            "description": "Gerencie seu estoque, entradae saida de produtos cadastrados",
+            "goTo": "/product"   
+        },
+        {
+           "id": 2,
+            "title": "Gerencia estoquie",
+            "description": "Gerencie seu estoque, entradae saida de produtos cadastrados",
+            "goTo": "/product"  
+        },
+        {
+           "id": 3,
+            "title": "Gerencia estoquie",
+            "description": "Gerencie seu estoque, entradae saida de produtos cadastrados",
+            "goTo": "/product"
+        }
+    ]
+}

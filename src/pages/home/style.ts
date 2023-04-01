@@ -10,7 +10,7 @@ export const ContainerHome = styled.div`
 export const ContentBanner = styled.div`
 background: rgb(220,221,221);
 background: linear-gradient(90deg, rgba(220,221,221,1) 0%, rgba(184,181,181,0.8465511204481793) 50%);
-height: 50vh;
+height: 290px;
 border-radius: 20px;
 margin: 20px;
 overflow: hidden;
