@@ -7,7 +7,7 @@ display: flex;
     width: 270px;
     height: 150px;    
     text-decoration: none;
-    background: linear-gradient(90deg, rgba(255,255,255,0.2) 0%, rgba(184,181,181,0.1) 60%);
+    background: linear-gradient(90deg, rgba(255,255,255,0.5) 0%, rgba(184,181,181,0.6) 60%);
     background: grey;
     border-radius: 20px;    
     margin: 10px;
@@ -31,7 +31,7 @@ flex-direction: column;
         color: black;
         position: relative;
 left: 40px;
-top: -80px;
+top: -40px;
     }
     p {
         font-weight: 700;
@@ -39,13 +39,13 @@ top: -80px;
         color: #fff;
         position: relative;
 left: 150px;
-top: -100px;
+top: -60px;
         
     }
     img{
         width: 200px;        
         position: relative;
         left: 15%;
-        top: -40px;
+        top: -0px;
     }
 `;

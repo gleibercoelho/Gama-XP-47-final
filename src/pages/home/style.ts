@@ -59,9 +59,34 @@ justify-content: space-around;
 `
 export const Footer = styled.div`
 display: flex;
+flex-direction: column;
+flex-wrap: wrap;
+justify-content: space-around;
+div{
+    
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-self: center;
+    h1{
+        font-weight: 700;
+        font-size: 50px;
+        margin-top: 50px;
+    }
+    span{
+        font-weight: 500;
+        font-size: 30px;
+        margin-bottom: 50px;
+        text-align: center;
+    }
+}
+section{
+    display: flex;
 flex-direction: row;
 flex-wrap: wrap;
 justify-content: space-around;
+}
+
 `
 
 export const Um = styled.div`

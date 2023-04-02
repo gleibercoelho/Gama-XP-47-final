@@ -68,6 +68,9 @@ export function Home() {
 
                 </ContentCards>
                 <Footer>
+<div><h1>BEST SELLER PRODUCTS</h1>
+<span>BUY IT NOW</span></div>
+                    <section>
                 {responseArray.map((item: ResponseObject) => (
         <Card
             key={item.id}
@@ -76,6 +79,7 @@ export function Home() {
             goToUrl={item.goToUrl}
         />
     ))}
+    </section>
                 </Footer>
             </ContainerHome>
         </>
