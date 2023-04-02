@@ -8,27 +8,51 @@
     "": [
         {
             "id": 0,
-            "title": "Vendas",
-            "description": "Gerencie suas vendas e saidas de estoque",
+            "title": "Produto 1",
+            "description": "77,29",
             "goTo": "/product"
         },
         {
            "id": 1,
-            "title": "Gerencia estoquie",
-            "description": "Gerencie seu estoque, entradae saida de produtos cadastrados",
+           "title": "Produto 2",
+            "description": "77,29",
             "goTo": "/product"   
         },
         {
            "id": 2,
-            "title": "Gerencia estoquie",
-            "description": "Gerencie seu estoque, entradae saida de produtos cadastrados",
+           "title": "Produto 3",
+           "description": "77,29",
             "goTo": "/product"  
         },
         {
            "id": 3,
-            "title": "Gerencia estoquie",
-            "description": "Gerencie seu estoque, entradae saida de produtos cadastrados",
+           "title": "Produto 4",
+           "description": "77,29",
             "goTo": "/product"
-        }
+        },
+        {
+           "id": 4,
+           "title": "Produto 5",
+           "description": "77,29",
+            "goTo": "/product"
+        },
+        {
+           "id": 5,
+           "title": "Produto 6",
+           "description": "77,29",
+            "goTo": "/product"
+        },
+        {
+           "id": 6,
+           "title": "Produto 7",
+           "description": "77,29",
+            "goTo": "/product"
+        },
+        {
+           "id": 7,
+           "title": "Produto 8",
+           "description": "77,29",
+            "goTo": "/product"
+        }  
     ]
 }

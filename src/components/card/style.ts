@@ -2,32 +2,50 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const ContainerCard = styled(Link)`
-    width: 359px;
-    height: 86px;
-    padding: 9px 15px;
+display: flex;
+
+    width: 270px;
+    height: 150px;    
     text-decoration: none;
-    background: #FFFFFF;
-    border-radius: 4px;
-    transition: box-shadow 0.3s;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
+    background: linear-gradient(90deg, rgba(255,255,255,0.2) 0%, rgba(184,181,181,0.1) 60%);
+    background: grey;
+    border-radius: 20px;    
+    margin: 10px;
+    
+    
+        
+    
     &:hover {
-        box-shadow: 1px 5px 29px -13px rgba(0, 0, 0, 0.25);
+        box-shadow: 1px 5px 29px -13px rgba(37, 190, 68, 0.5);
     }
 `;
 
 export const Content = styled.div`
+font-family: "roboto", sans-serif;
+display: flex;
+flex-direction: column;
+
     h5 {
         font-weight: 700;
-        font-size: 1.25rem;
-        line-height: 1.1875rem;
-        color: var(--blue-400);
+        font-size: 1.25rem;        
+        color: black;
+        position: relative;
+left: 40px;
+top: -80px;
     }
     p {
-        font-weight: 400;
+        font-weight: 700;
         font-size: 1rem;
-        color: var(--grey-400);
-        margin-top: 16px;
+        color: #fff;
+        position: relative;
+left: 150px;
+top: -100px;
+        
+    }
+    img{
+        width: 200px;        
+        position: relative;
+        left: 15%;
+        top: -40px;
     }
 `;

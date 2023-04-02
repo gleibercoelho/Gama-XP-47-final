@@ -17,67 +17,67 @@ import { ResponseObject } from "../../Utils/type";
 
 
 
+
 export function Home() {
 
-    interface ICardProps {
-        id: number;
-        name: string;
-        description: string;
-        goto: string;
-      }
 
-    const App = () => {
-        const [responseArray, setResponseArray] = useState([]);
+
+    const [responseArray, setResponseArray] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await fetch("http://localhost:5000/");
+            const data = await response.json();
+            setResponseArray(data);
+          } catch (error) {
+            console.error(error);
+          }
+        };
       
-        useEffect(() => {
-          const fetchData = async () => {
-            try {
-              const response = await axios.get('http://localhost:5000/');
-              setResponseArray(response.data);
-            } catch (error) {
-              console.log(error);
-            }
-          };
-          fetchData();
-        }, []);
-      
-        
-      };
-      
-
-        
-
-        return (
-            <>
-                <Header />
-                <ContainerHome>
-                    <ContentBanner>
-                        <h3>Beats Solo</h3>
-                        <h2>wireless</h2>
-                        <h1>HEADPHONE</h1>
-                        <img src={headphone} alt="" />
-                    </ContentBanner>
-                    <ContentCards  >
-                        {/* onLoad={products(getProducts)} */}
+        fetchData();
+      }, []);
 
 
-                        <CardDois backgroundColor="#25be44" h3="Trend" img={laptop} h2="Devices" h1="Macbook" />
-                        <CardUm backgroundColor="red" h3="Now" img={smartwatch} h2="Wear" h1="Gadget" />
-                        <CardUm backgroundColor="orange" h3="Play" img={oculus} h2="Game" h1="Oculus" />
-                        <CardUm backgroundColor="#f5de0c" h3="Enjoy" img={earphone} h2="with" h1="Earphone" />
-                        <CardUm backgroundColor="pink" h3="Now" img={speaker} h2="Amazing" h1="Speaker" />
-                        <CardDois backgroundColor="blue" h3="Bost" img={console} h2="Gaming" h1="Console" />
 
-                    </ContentCards>
-                    <Footer>
-                        {responseArray.map((card: ICardProps) => (
-                            <Card key={card.id} {...card} />
-                        ))}
 
-                    </Footer>
-                </ContainerHome>
-            </>
-        )
-    }
 
-    export default App;
+
+
+
+    return (
+        <>
+            <Header />
+            <ContainerHome>
+                <ContentBanner>
+                    <h3>Beats Solo</h3>
+                    <h2>wireless</h2>
+                    <h1>HEADPHONE</h1>
+                    <img src={headphone} alt="" />
+                </ContentBanner>
+                <ContentCards  >
+                    {/* onLoad={products(getProducts)} */}
+
+
+                    <CardDois backgroundColor="rgb(37, 190, 68)" h3="Trend" img={laptop} h2="Devices" h1="Macbook" />
+                    <CardUm backgroundColor="red" h3="Now" img={smartwatch} h2="Wear" h1="Gadget" />
+                    <CardUm backgroundColor="orange" h3="Play" img={oculus} h2="Game" h1="Oculus" />
+                    <CardUm backgroundColor="#f5de0c" h3="Enjoy" img={earphone} h2="with" h1="Earphone" />
+                    <CardUm backgroundColor="pink" h3="Now" img={speaker} h2="Amazing" h1="Speaker" />
+                    <CardDois backgroundColor="blue" h3="Bost" img={console} h2="Gaming" h1="Console" />
+
+                </ContentCards>
+                <Footer>
+                {responseArray.map((item: ResponseObject) => (
+        <Card
+            key={item.id}
+            title={item.title}
+            description={item.description}
+            goToUrl={item.goToUrl}
+        />
+    ))}
+                </Footer>
+            </ContainerHome>
+        </>
+    )
+}

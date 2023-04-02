@@ -1,6 +1,6 @@
-import { ArrowCircleRight } from "@phosphor-icons/react";
 import { ContainerCard, Content } from "./style";
 import { ResponseObject } from "../../Utils/type";
+import keyboard from "../../assets/images/keyboard.png"
 
 interface ICardProps {
     id: number;
@@ -15,10 +15,11 @@ export const Card: React.FC<ICardProps> = ({title, description, goToUrl}: ICardP
     return (
        <ContainerCard to={goToUrl}>
         <Content>
+        <img src={keyboard} alt="" />
             <h5>{title}</h5>
             <p>{description}</p>
-        </Content>
-        <ArrowCircleRight size={25} color="#134e87" />
+            
+        </Content>        
        </ContainerCard>
     )
 }

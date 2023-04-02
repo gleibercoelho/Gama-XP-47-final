@@ -57,7 +57,12 @@ flex-direction: row;
 flex-wrap: wrap;
 justify-content: space-around;
 `
-export const Footer = styled.div``
+export const Footer = styled.div`
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+justify-content: space-around;
+`
 
 export const Um = styled.div`
 background-color: blue;
