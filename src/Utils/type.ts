@@ -1,5 +1,6 @@
 export interface ResponseObject {
-    title: string;
-    description: string;
-    goToUrl: string;
-  }
+  id: string;
+  title: string;
+  description: string;
+  goToUrl: string;
+}

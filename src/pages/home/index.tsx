@@ -9,41 +9,28 @@ import laptop from "../../assets/images/laptop.png"
 import console from "../../assets/images/console.png"
 import oculus from "../../assets/images/oculus.png"
 import speaker from "../../assets/images/speaker.png"
-import { products } from "../../services/home.service";
-import axios, { AxiosResponse } from "axios";
 import { Card } from "../../components/card";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ResponseObject } from "../../Utils/type";
 
 
-
-
 export function Home() {
-
-
 
     const [responseArray, setResponseArray] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
-          try {
-            const response = await fetch("http://localhost:5000/");
-            const data = await response.json();
-            setResponseArray(data);
-          } catch (error) {
-            console.error(error);
-          }
+            try {
+                const response = await fetch("http://localhost:5000/");
+                const data = await response.json();
+                setResponseArray(data);
+            } catch (error) {
+                console.error(error);
+            }
         };
-      
+
         fetchData();
-      }, []);
-
-
-
-
-
-
-
+    }, []);
 
     return (
         <>
@@ -56,9 +43,6 @@ export function Home() {
                     <img src={headphone} alt="" />
                 </ContentBanner>
                 <ContentCards  >
-                    {/* onLoad={products(getProducts)} */}
-
-
                     <CardDois backgroundColor="rgb(37, 190, 68)" h3="Trend" img={laptop} h2="Devices" h1="Macbook" />
                     <CardUm backgroundColor="red" h3="Now" img={smartwatch} h2="Wear" h1="Gadget" />
                     <CardUm backgroundColor="orange" h3="Play" img={oculus} h2="Game" h1="Oculus" />
@@ -68,18 +52,18 @@ export function Home() {
 
                 </ContentCards>
                 <Footer>
-<div><h1>BEST SELLER PRODUCTS</h1>
-<span>BUY IT NOW</span></div>
+                    <div><h1>BEST SELLER PRODUCTS</h1>
+                        <span>BUY IT NOW</span></div>
                     <section>
-                {responseArray.map((item: ResponseObject) => (
-        <Card
-            key={item.id}
-            title={item.title}
-            description={item.description}
-            goToUrl={item.goToUrl}
-        />
-    ))}
-    </section>
+                        {responseArray.map((item: ResponseObject) => (
+                            <Card
+                                id={item.id}
+                                title={item.title}
+                                description={item.description}
+                                goToUrl={item.goToUrl}
+                            />
+                        ))}
+                    </section>
                 </Footer>
             </ContainerHome>
         </>
