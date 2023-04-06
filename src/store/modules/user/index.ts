@@ -11,14 +11,14 @@ const userReduce = createSlice({
     name: "user",
     initialState: {
         isLogged: false,
-        isAdminister: false
+        isAdminster: false
     } as unknown as IUserState, 
     reducers: {
         setUser(state, action){
             Object.assign(state,{
                 token: action.payload.token,
                 email: action.payload.email,
-                islogged: true,
+                isLogged: true,
 
             });
         },

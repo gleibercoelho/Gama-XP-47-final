@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../store/modules/user";
+import { setUser, removeUser } from "../../store/modules/user";
 
 interface LoginProps {
   onLogin: (email: string, senha: string) => void;
@@ -11,22 +11,13 @@ export default function Login(props: LoginProps) {
   const [senha, setSenha] = useState("");
   const dispatch = useDispatch();
 
-  /*const submit = async (event: FormEvent) => {
-    event.preventDefault(response.data);
-    try{
-      const response = await login({email,senha});
-      console.log(response.data)
-      dispatch(setUser({
-        token: response.data,
-        email, 
-      }))
-      alert("deu certo");
-    }
-    catch (error) {
-      alert ("Deu algo errado"");
-    }
-  }
-  */
+  const handleLogout = () => {
+    dispatch(removeUser({
+      token: undefined,
+      email: undefined,
+      tipo: undefined,
+    }));
+  };
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -54,27 +45,34 @@ export default function Login(props: LoginProps) {
       console.error("Failed to login:", data.error);
     }
   }
+
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Email:
-        <input
-          type="text"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-        />
-      </label>
-      <br />
-      <label>
-        senha:
-        <input
-          type="password"
-          value={senha}
-          onChange={(event) => setSenha(event.target.value)}
-        />
-      </label>
-      <br />
-      <button type="submit">Login</button>
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Email:
+          <input
+            type="text"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
+        </label>
+        <br />
+        <label>
+          senha:
+          <input
+            type="password"
+            value={senha}
+            onChange={(event) => setSenha(event.target.value)}
+          />
+        </label>
+        <br />
+        <button type="submit">Login</button>
+        <button onClick={handleLogout}>Logout</button>
+      </form>
+    </>
   );
 }
+
+
+
