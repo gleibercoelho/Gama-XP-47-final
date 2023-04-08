@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setUser, removeUser } from "../../store/modules/user";
+import { useSelector } from "react-redux";
+import { RootStore } from "../../store";
+import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { Header } from "../../components/header";
 
 interface LoginProps {
   onLogin: (email: string, senha: string) => void;
@@ -10,12 +15,14 @@ export default function Login(props: LoginProps) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const dispatch = useDispatch();
+  const user = useSelector((store: RootStore) => store.userReduce )
 
   const handleLogout = () => {
     dispatch(removeUser({
       token: undefined,
       email: undefined,
       tipo: undefined,
+      nome: undefined
     }));
   };
 
@@ -38,6 +45,7 @@ export default function Login(props: LoginProps) {
         token: data.token,
         email: email,
         tipo: data.tipo,
+        nome: data.nome
       }))
       console.log("logado com sucesso");
     } else {
@@ -48,6 +56,7 @@ export default function Login(props: LoginProps) {
 
   return (
     <>
+    <Header/>
       <form onSubmit={handleSubmit}>
         <label>
           Email:
@@ -70,6 +79,7 @@ export default function Login(props: LoginProps) {
         <button type="submit">Login</button>
         <button onClick={handleLogout}>Logout</button>
       </form>
+      <NavLink to={"/"}> <button> home</button></NavLink>
     </>
   );
 }

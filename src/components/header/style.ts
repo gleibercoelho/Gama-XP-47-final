@@ -11,6 +11,11 @@ justify-content: space-between;
 img{
     width: 60px;
 }
+a{
+   text-decoration: none;
+   cursor: pointer;
+   
+}
  ul{
     display: flex;
     flex-direction: row;    

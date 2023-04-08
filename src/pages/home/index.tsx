@@ -21,7 +21,7 @@ export function Home() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch("http://localhost:5000/");
+                const response = await fetch("http://localhost:3000/produtos");
                 const data = await response.json();
                 setResponseArray(data);
             } catch (error) {

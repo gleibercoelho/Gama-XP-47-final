@@ -3,6 +3,7 @@ import {createSlice} from "@reduxjs/toolkit";
 interface IUserState {
     token?: string,
     email?: string,
+    name?: string,
     isLogged: boolean;
     isAdminster: boolean;
 }
@@ -18,6 +19,7 @@ const userReduce = createSlice({
             Object.assign(state,{
                 token: action.payload.token,
                 email: action.payload.email,
+                name: action.payload.nome,
                 isLogged: true,
 
             });
@@ -27,6 +29,7 @@ const userReduce = createSlice({
             Object.assign(state, {
                 token: undefined,
                 email: undefined,
+                nome: undefined,
                 isLogged: false,
             })
         }
