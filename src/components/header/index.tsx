@@ -5,10 +5,18 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeUser } from "../../store/modules/user";
 import { NavLink, useNavigate } from "react-router-dom";
 
+interface IUserState {
+    token?: string,
+    email?: string,
+    name?: string,
+    isLogged: boolean;
+    isAdminster: boolean;
+}
+
 export function Header() {
     
-    const isLogged = useSelector((state: any) => state.user.isLogged);
-    const name = useSelector((state: any) => state.user.name);
+    const isLogged = useSelector((state: any) => state.user && state.user.isLogged);
+    const name = useSelector((state: any) => state.user.name || '');
     const dispatch = useDispatch();
     const navigate = useNavigate();
 

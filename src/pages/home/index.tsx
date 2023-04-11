@@ -1,4 +1,4 @@
-import { ContainerHome, ContentBanner, ContentCards, Footer, Um } from "./style"
+import { ContainerHome, ContentBanner, ContentCards, Um, Vitrine } from "./style"
 import { Header } from "../../components/header";
 import headphone from "../../assets/images/headphone.png";
 import { CardUm } from "../../components/cardUm";
@@ -12,6 +12,7 @@ import speaker from "../../assets/images/speaker.png"
 import { Card } from "../../components/card";
 import { useEffect, useState } from "react";
 import { ResponseObject } from "../../Utils/type";
+import Footer from "../../components/footer";
 
 
 export function Home() {
@@ -51,12 +52,13 @@ export function Home() {
                     <CardDois backgroundColor="blue" h3="Bost" img={console} h2="Gaming" h1="Console" />
 
                 </ContentCards>
-                <Footer>
+                <Vitrine>
                     <div><h1>BEST SELLER PRODUCTS</h1>
                         <span>BUY IT NOW</span></div>
                     <section>
-                        {responseArray.map((item: ResponseObject) => (
+                        {responseArray.slice(0, 8).map((item: ResponseObject) => (
                             <Card
+                                key={item.id}
                                 id={item.id}
                                 title={item.title}
                                 description={item.description}
@@ -64,7 +66,8 @@ export function Home() {
                             />
                         ))}
                     </section>
-                </Footer>
+                </Vitrine>
+                <Footer/>
             </ContainerHome>
         </>
     )

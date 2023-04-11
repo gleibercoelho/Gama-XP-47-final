@@ -57,7 +57,7 @@ flex-direction: row;
 flex-wrap: wrap;
 justify-content: space-around;
 `
-export const Footer = styled.div`
+export const Vitrine = styled.div`
 display: flex;
 flex-direction: column;
 flex-wrap: wrap;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { api } from "../../services/api";
 import { Header } from "../../components/header";
+import Pagination from "../../components/pagination";
 
 interface Produto {
   id: number;
@@ -14,6 +15,7 @@ interface Produto {
 const Products = () => {
   const [produtos, setProdutos] = useState<Produto[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [offset, setOffset] = useState<number>(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,11 +27,16 @@ const Products = () => {
 
   const handleCategoryFilter = (categoryName: string) => {
     setSelectedCategory(categoryName);
+    setOffset(0); // Reset the offset when the category changes
   };
 
   const filteredProdutos = selectedCategory
     ? produtos.filter((produto) => produto.categoria === selectedCategory)
     : produtos;
+
+  const limit = 6;
+  const total = filteredProdutos.length;
+  const paginatedProdutos = filteredProdutos.slice(offset, offset + limit);
 
   return (
     <>
@@ -46,7 +53,7 @@ const Products = () => {
             Console
           </button>
         </div>
-        {filteredProdutos.map((produto) => (
+        {paginatedProdutos.map((produto) => (
           <div key={produto.id}>
             <h2>{produto.nome}</h2>
             <img src={produto.foto} alt={produto.nome} />
@@ -56,6 +63,12 @@ const Products = () => {
           </div>
         ))}
       </div>
+      <Pagination
+        limit={limit}
+        total={total}
+        offset={offset}
+        setOffset={setOffset}
+      />
     </>
   );
 };
