@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { api } from "../../services/api";
 import { Header } from "../../components/header";
 import Pagination from "../../components/pagination";
+import { Link } from "react-router-dom";
 
 interface Produto {
   id: number;
@@ -14,7 +15,7 @@ interface Produto {
 
 const Products = () => {
   const [produtos, setProdutos] = useState<Produto[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [offset, setOffset] = useState<number>(0);
 
   useEffect(() => {
@@ -26,12 +27,25 @@ const Products = () => {
   }, []);
 
   const handleCategoryFilter = (categoryName: string) => {
-    setSelectedCategory(categoryName);
+    let newSelectedCategories: string[];
+    if (selectedCategories.includes(categoryName)) {
+      newSelectedCategories = selectedCategories.filter(
+        (category) => category !== categoryName
+      );
+    } else {
+      newSelectedCategories = [...selectedCategories, categoryName];
+    }
+    setSelectedCategories(newSelectedCategories);
     setOffset(0); // Reset the offset when the category changes
   };
 
-  const filteredProdutos = selectedCategory
-    ? produtos.filter((produto) => produto.categoria === selectedCategory)
+  const showAllProducts = () => {
+    setSelectedCategories([]);
+    setOffset(0);
+  }
+
+  const filteredProdutos = selectedCategories.length > 0
+    ? produtos.filter((produto) => selectedCategories.includes(produto.categoria))
     : produtos;
 
   const limit = 6;
@@ -43,20 +57,45 @@ const Products = () => {
       <Header></Header>
       <div>
         <div>
-          <button onClick={() => handleCategoryFilter("hardware")}>
+          <label>
+            <input
+              type="checkbox"
+              checked={selectedCategories.length === 0}
+              onChange={showAllProducts}
+            />
+            Toda loja
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={selectedCategories.includes("hardware")}
+              onChange={() => handleCategoryFilter("hardware")}
+            />
             Hardware
-          </button>
-          <button onClick={() => handleCategoryFilter("Gadgets")}>
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={selectedCategories.includes("Gadgets")}
+              onChange={() => handleCategoryFilter("Gadgets")}
+            />
             Gadget
-          </button>
-          <button onClick={() => handleCategoryFilter("console")}>
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={selectedCategories.includes("console")}
+              onChange={() => handleCategoryFilter("console")}
+            />
             Console
-          </button>
+          </label>
         </div>
         {paginatedProdutos.map((produto) => (
           <div key={produto.id}>
             <h2>{produto.nome}</h2>
-            <img src={produto.foto} alt={produto.nome} />
+            <Link to={`/products/${produto.id}`}>
+              <img src={produto.foto} alt={produto.nome} />
+            </Link>
             <p>{produto.preco}</p>
             <p>{produto.descricao}</p>
             <p>{produto.categoria}</p>

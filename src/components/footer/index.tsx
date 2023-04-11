@@ -15,3 +15,5 @@ export function Footer() {
     </FooterBox>
   );
 }
+
+export default Footer;
