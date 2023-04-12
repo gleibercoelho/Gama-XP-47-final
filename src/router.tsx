@@ -3,7 +3,7 @@ import {BrowserRouter} from "react-router-dom";
 import { Home } from "./pages/home";
 import Login from "./pages/login";
 import Products from "./pages/products";
-import ProductDetail from "./pages/products/products id";
+import ProductDetail from "./pages/products id";
 
 interface RouterProps {
     onLogin: (username: string, email: string) => void;
