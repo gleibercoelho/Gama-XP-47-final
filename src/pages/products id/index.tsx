@@ -3,56 +3,36 @@ import { api } from "../../services/api";
 import React, { useState, useEffect } from "react";
 import { Header } from "../../components/header";
 import Footer from "../../components/footer";
-import { addItem, removeItem } from "../../store/modules/cart";
-import { connect } from "react-redux";
-import { RootState } from "../../store";
-import RouteComponentProps from "react-router-dom";
-
-interface Props extends RouteComponentProps<{ productId: string }> {
-  addItem: typeof addItem;
-  removeItem: typeof removeItem;
-  product: Produto | null;
-}
-
-
-
-interface Props {
-  addItem: typeof addItem;
-  removeItem: typeof removeItem;
-  product: Produto | null;
-}
-
-interface CartItem {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
-}
-
-
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../store/modules/cart";
 
 interface Produto {
-  id: string | any;
   nome: string;
   foto: string;
   descricao: string;
   preco: number;
   categoria: string;
-  button: string;
+  // add any other properties you want to include in the product object
 }
-
 
 const ProductDetail = () => {
   const { productId } = useParams<{ productId: string }>();
   const [product, setProduct] = useState<Produto | null>(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchProduct = async () => {
       const result = await api.get(`http://localhost:3000/produtos/${productId}`);
-      setProduct({ ...result.data, id: result.data.id });
+      setProduct(result.data);
     };
     fetchProduct();
   }, [productId]);
+
+  const handleAddToCart = () => {
+    if (product) {
+      dispatch(addToCart(product));
+    }
+  };
 
   if (!product) {
     return <div>Loading...</div>;
@@ -67,22 +47,12 @@ const ProductDetail = () => {
         <p>{product.descricao}</p>
         <p>{product.preco}</p>
         <p>{product.categoria}</p>
-        <button onClick={() => addItem({ id: parseInt(product.id), quantity: 1 })}>Add to Cart</button>
-        <button onClick={() => removeItem({ id: parseInt(product.id), quantity: -1 })}>remove from Cart</button>
-
-
-
+        {/* add any other product details you want to display */}
+        <button onClick={handleAddToCart}>Add to Cart</button>
       </div>
       <Footer />
     </>
   );
 };
 
-const mapStateToProps = (state: RootState, ownProps: Props) => ({
-  product: state.products.find((p) => p.id === parseInt(ownProps.match.params.productId)) || null,
-});
-
-
-
-
-export default connect(mapStateToProps, { addItem, removeItem })(ProductDetail);
+export default ProductDetail;

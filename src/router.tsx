@@ -4,6 +4,7 @@ import { Home } from "./pages/home";
 import Login from "./pages/login";
 import Products from "./pages/products";
 import ProductDetail from "./pages/products id";
+import CartPage from "./pages/cart";
 
 interface RouterProps {
     onLogin: (username: string, email: string) => void;
@@ -17,6 +18,7 @@ export default function Router({ onLogin }: RouterProps) {
             <Route path="/login" element={<Login onLogin={onLogin} />}/>
             <Route path="/products" element={<Products/>} />
             <Route path="/products/:productId" element={<ProductDetail />} />
+            <Route path="/cart" element={<CartPage/>} />
 
         </Routes>
         </BrowserRouter>
