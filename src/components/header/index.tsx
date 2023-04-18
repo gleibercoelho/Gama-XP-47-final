@@ -26,7 +26,7 @@ export function Header() {
 
     const handleOrdersClick = () => {
         if (isLogged) {
-            navigate('/orders');
+            navigate('/user');
         } else {
             navigate('/login');
         }
@@ -38,7 +38,7 @@ export function Header() {
             <ul>
                 <li><NavLink to="/">Home<Desktop size={25} color="#d2f910" /></NavLink></li>
                 <li><NavLink to="/products">Produtos <GameController size={25} color="#080808" /></NavLink></li>
-                <li><button onClick={handleOrdersClick}>Pedidos <ClipboardText size={25} color="#0c08fd" /></button></li>
+                <li><button onClick={handleOrdersClick}>Perfil <ClipboardText size={25} color="#0c08fd" /></button></li>
                 <li><NavLink to="/cart">Carrinho <ShoppingCart size={25} color="#fd0808" /></NavLink></li>
             </ul>
             {isLogged ? (

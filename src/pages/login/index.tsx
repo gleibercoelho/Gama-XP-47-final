@@ -22,7 +22,8 @@ export default function Login(props: LoginProps) {
       token: undefined,
       email: undefined,
       tipo: undefined,
-      nome: undefined
+      nome: undefined,
+      id: null,
     }));
   };
 
@@ -45,7 +46,8 @@ export default function Login(props: LoginProps) {
         token: data.token,
         email: email,
         tipo: data.tipo,
-        nome: data.nome
+        nome: data.nome,
+        id: data.id,
       }))
       console.log("logado com sucesso");
     } else {
