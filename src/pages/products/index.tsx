@@ -3,6 +3,7 @@ import { api } from "../../services/api";
 import { Header } from "../../components/header";
 import Pagination from "../../components/pagination";
 import { Link } from "react-router-dom";
+import Footer from "../../components/footer";
 
 interface Produto {
   id: number;
@@ -108,6 +109,7 @@ const Products = () => {
         offset={offset}
         setOffset={setOffset}
       />
+      <Footer/>
     </>
   );
 };

@@ -14,7 +14,7 @@ interface IUserState {
 }
 
 export function Header() {
-    
+
     const isLogged = useSelector((state: any) => state.user && state.user.isLogged);
     const name = useSelector((state: any) => state.user.name || '');
     const dispatch = useDispatch();
@@ -38,19 +38,20 @@ export function Header() {
             <ul>
                 <li><NavLink to="/">Home<Desktop size={25} color="#d2f910" /></NavLink></li>
                 <li><NavLink to="/products">Produtos <GameController size={25} color="#080808" /></NavLink></li>
-                <li><button onClick={handleOrdersClick}>Perfil <ClipboardText size={25} color="#0c08fd" /></button></li>
+                <li><NavLink to="/user" onClick={handleOrdersClick}>Perfil<ClipboardText size={25} color="#0c08fd" /></NavLink></li>
                 <li><NavLink to="/cart">Carrinho <ShoppingCart size={25} color="#fd0808" /></NavLink></li>
+
+                {isLogged ? (
+                    <>
+                        <li>Olá, {name}!</li>
+                        <li onClick={handleLogout}>Logout <Keyhole size={25} color="#15ad43" /></li>
+                    </>
+                ) : (
+                    <NavLink to="/login">
+                        <li>Login <Keyhole size={25} color="#15ad43" /></li>
+                    </NavLink>
+                )}
             </ul>
-            {isLogged ? (
-                <>
-                <h2>Olá, {name}!</h2>
-                <h2 onClick={handleLogout}>Logout <Keyhole size={25} color="#15ad43" /></h2>
-                </>
-            ) : (
-                <NavLink to="/login">
-                    <h2>Login <Keyhole size={25} color="#15ad43" /></h2>
-                </NavLink>
-            )}
         </HeaderBox>
     );
 }

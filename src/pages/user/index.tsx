@@ -41,8 +41,8 @@ function renderPedidos(pedidos) {
     pedido.Produtos.forEach(produto => {
       const produtoItem = document.createElement('li');
 
-      /*  const produtoFoto = document.createElement('img');
-       produtoFoto.src = `/assets/${produto.foto}`; */
+       const produtoFoto = document.createElement('img');
+       produtoFoto.src = `/assets/${produto.foto}`;
 
       const produtoNome = document.createElement('p');
       produtoNome.innerText = `Nome: ${produto.nome}`;
@@ -58,7 +58,7 @@ function renderPedidos(pedidos) {
       const partialAmountElement = document.createElement('p');
       partialAmountElement.innerText = `Partial amount: ${partialAmount}`;
 
-      produtoItem.append(/* produtoFoto, */ produtoNome, produtoPreco, detalhePedidoQuantidade, partialAmountElement);
+      produtoItem.append(produtoFoto, produtoNome, produtoPreco, detalhePedidoQuantidade, partialAmountElement);
       produtosList.appendChild(produtoItem);
     });
 
@@ -84,6 +84,7 @@ const ProfilePage = () => {
   const [shouldReload, setShouldReload] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
 
 
 
@@ -108,7 +109,7 @@ const ProfilePage = () => {
   useEffect(() => {
     if (!isLogged) {
       // Redirect to login page if user is not logged in
-      window.location.href = '/login';
+      navigate('/login');
     } else {
       // Fetch user information by ID from endpoint
       fetchUser();

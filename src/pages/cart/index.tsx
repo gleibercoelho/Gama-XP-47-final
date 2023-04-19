@@ -1,9 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
-import {  addToCart,  decreaseCart, removeFromCart,  clearCart,} from "../../store/modules/cart";
+import { addToCart, decreaseCart, removeFromCart, clearCart, } from "../../store/modules/cart";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { Header } from "../../components/header";
 import { RootState } from "../../store";
+import Footer from "../../components/footer";
+import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
 interface Produto {
   id: number;
@@ -16,11 +20,12 @@ interface Produto {
 
 function CartPage() {
   const [coupon, setCoupon] = useState("");
-  
+
   const cart = useSelector((state) => state.cart);
   const token = useSelector((state: any) => state.user.token || '');
   const dispatch = useDispatch();
   const [products, setProducts] = useState<Produto[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -34,36 +39,56 @@ function CartPage() {
       fetchProducts();
     }
   }, [cart]);
-  
- 
-  async function handleCheckout(coupon: string) {    
+
+
+  async function handleCheckout(coupon: string | undefined) {
     await sendCartData(cart, token, coupon);
     console.log(token);
   }
 
-  async function sendCartData(cart: RootState["cart"], token: string, coupon: string) {
+  function Checkout() {
+    const location = useLocation();
+    const orderId = new URLSearchParams(location.search).get('id');
+  }
+
+  async function sendCartData(cart: RootState["cart"], token: string, coupon?: string) {
+    const requestBody = {
+      listaprodutos: cart.cartItems.map(item => {
+        return { idproduto: item.id, quantidade: item.cartQuantity };
+      }),
+    };
+
+    if (coupon) {
+      requestBody["nomeCupom"] = coupon;
+    }
+
     try {
-      const response = await api.post(
-        "http://localhost:3000/pedidos",
-        {
-          listaprodutos: cart.cartItems.map(item => {
-            return { idproduto: item.id, quantidade: item.cartQuantity };
-          }),
-          nomeCupom: coupon,
-        },
+      const response = await api.post("http://localhost:3000/pedidos",
+        requestBody,
         {
           headers: {
             "Content-Type": 'application/json',
             Authorization: `Bearer ${token}`,
           },
         }
-      );
+      ).then(response => {
+        if (response.status = 201) {
+          const pedidoId = response.data[0].id;
+          console.log(pedidoId);
+          alert('checkout successful!');
+          handleClearCart();
+          navigate('/checkout'+'?id=' +`${pedidoId}`);
+        } else {
+          throw new Error('Error signing up');
+        }
+      });
       console.log(response.data);
     } catch (error) {
       console.log(error.response.data);
     }
   };
-  
+
+
 
   function handleIncrease(product) {
     dispatch(addToCart(product));
@@ -100,15 +125,15 @@ function CartPage() {
     return 0;
   }
 
- 
+
   const [couponError, setCouponError] = useState(null);
 
- 
+
   async function handleVerifyCoupon(coupon: string) {
     event?.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:3000/cupons?nome=${coupon}`, {
+      const response = await api.get(`http://localhost:3000/cupons?nome=${coupon}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -133,7 +158,10 @@ function CartPage() {
       <div>
         <h1>Cart Page</h1>
         {cart.cartItems.length === 0 ? (
-          <p>Your cart is empty</p>
+          <>
+            <p>Your cart is empty</p>
+            <NavLink to="/" ><button> Voltar a Loja</button></NavLink>
+          </>
         ) : (
           <>
             <table>
@@ -149,63 +177,67 @@ function CartPage() {
               <tbody>
                 {cart.cartItems.map((item) => {
                   const product = products.find((p) => p.id === item.id);
-                    if (!product) return null;
-                    const unitPrice = getProductPrice(item.id);
-                    const totalProductPrice = getProductTotalPrice(item.id);
-                    return (
-                      <tr key={product.id}>
-                        <td>{product.nome}</td>
-                        <td>${unitPrice.toFixed(2)}</td>
-                        <td>
-                          <button onClick={() => handleDecrease(product)}>
-                            -
-                          </button>
-                          {item.cartQuantity}
-                          <button onClick={() => handleIncrease(product)}>
-                            +
-                          </button>
-                        </td>
-                        <td>${totalProductPrice.toFixed(2)}</td>
-                        <td>
-                          <button onClick={() => handleRemove(product)}>X</button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td colSpan="4" className="total">
-                      Total Quantity: {cart.cartTotalQuantity} | Total Amount: $
-                      {cart.cartTotalAmount.toFixed(2)}
-                    </td>
-                  </tr>
-                </tfoot>
-              </table>
-              <form>
-        <label>
-          Coupon code:
-          <input
-            type="text"
-            value={coupon}
-            onChange={(e) => setCoupon(e.target.value)}
-          />
-        </label>
-        <button type="button" onClick={() => handleVerifyCoupon(coupon)}>
-          Verify
-        </button>
-        {couponError && <p>{couponError}</p>}
-      </form>
-              <button onClick={handleClearCart}>Clear Cart</button>
-              <button onClick={() => handleCheckout(coupon)}>Check out</button>
-              
-              
-            </>
-          )}
-        </div>
-      </>
-    );
-  }
-  
-  export default CartPage;
-  
+                  if (!product) return null;
+                  const unitPrice = getProductPrice(item.id);
+                  const totalProductPrice = getProductTotalPrice(item.id);
+                  return (
+                    <tr key={product.id}>
+                      <td>{product.nome}</td>
+                      <td>${unitPrice.toFixed(2)}</td>
+                      <td>
+                        <button onClick={() => handleDecrease(product)}>
+                          -
+                        </button>
+                        {item.cartQuantity}
+                        <button onClick={() => handleIncrease(product)}>
+                          +
+                        </button>
+                      </td>
+                      <td>${totalProductPrice.toFixed(2)}</td>
+                      <td>
+                        <button onClick={() => handleRemove(product)}>X</button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colSpan="4" className="total">
+                    Total Quantity: {cart.cartTotalQuantity} | Total Amount: $
+                    {cart.cartTotalAmount.toFixed(2)}
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+            <form>
+              <label>
+                Coupon code:
+                <input
+                  type="text"
+                  value={coupon}
+                  onChange={(e) => setCoupon(e.target.value)}
+                />
+              </label>
+              <button type="button" onClick={() => handleVerifyCoupon(coupon)}>
+                Verify
+              </button>
+              {couponError && <p>{couponError}</p>}
+            </form>
+            <button onClick={handleClearCart}>Clear Cart</button>
+            <button onClick={() => handleCheckout(coupon)}>Check out</button>
+
+            <div>
+              <NavLink to="/products"> <button>
+                Keep Shopping
+              </button></NavLink>
+            </div>
+          </>
+        )}
+      </div>
+      <Footer />
+    </>
+  );
+}
+
+export default CartPage;

@@ -6,6 +6,8 @@ import { RootStore } from "../../store";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { Header } from "../../components/header";
+import Footer from "../../components/footer";
+
 
 interface LoginProps {
   onLogin: (email: string, senha: string) => void;
@@ -16,6 +18,7 @@ export default function Login(props: LoginProps) {
   const [senha, setSenha] = useState("");
   const dispatch = useDispatch();
   const user = useSelector((store: RootStore) => store.userReduce )
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(removeUser({
@@ -49,6 +52,7 @@ export default function Login(props: LoginProps) {
         nome: data.nome,
         id: data.id,
       }))
+      navigate("/")
       console.log("logado com sucesso");
     } else {
       // Handle login error
@@ -79,9 +83,14 @@ export default function Login(props: LoginProps) {
         </label>
         <br />
         <button type="submit">Login</button>
-        <button onClick={handleLogout}>Logout</button>
+        <div>
+          <p>Doesn't have a account? Sign up</p>
+          <NavLink to="/signup"><button>Sign up</button></NavLink>
+          
+        </div>
       </form>
-      <NavLink to={"/"}> <button> home</button></NavLink>
+      <Footer/>
+      
     </>
   );
 }
