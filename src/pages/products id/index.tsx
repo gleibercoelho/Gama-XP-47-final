@@ -5,6 +5,7 @@ import { Header } from "../../components/header";
 import Footer from "../../components/footer";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/modules/cart";
+import { DivMaster } from "./style";
 
 interface Produto {
   nome: string;
@@ -41,7 +42,7 @@ const ProductDetail = () => {
   return (
     <>
       <Header />
-      <div>
+      <DivMaster>
         <h2>{product.nome}</h2>
         <img src={product.foto} alt={product.nome} />
         <p>{product.descricao}</p>
@@ -49,7 +50,7 @@ const ProductDetail = () => {
         <p>{product.categoria}</p>
         {/* add any other product details you want to display */}
         <button onClick={handleAddToCart}>Add to Cart</button>
-      </div>
+      </DivMaster>
       <Footer />
     </>
   );

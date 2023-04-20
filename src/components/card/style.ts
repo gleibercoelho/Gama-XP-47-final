@@ -7,11 +7,11 @@ display: flex;
     width: 270px;
     height: 150px;    
     text-decoration: none;
-    background: linear-gradient(90deg, rgba(255,255,255,0.5) 0%, rgba(184,181,181,0.6) 60%);
-    background: grey;
+    background: linear-gradient(90deg, rgba(255,255,255,0.5) 10%, rgba(184,181,181,0.6) 40%);
+    background: green;
     border-radius: 20px;    
     margin: 10px;
-    
+    overflow: hidden;
     
         
     
@@ -24,28 +24,34 @@ export const Content = styled.div`
 font-family: "roboto", sans-serif;
 display: flex;
 flex-direction: column;
+text-shadow: {
+               -1px -1px 0px #FFF, 
+               -1px 1px 0px #FFF,                    
+                1px -1px 0px #FFF,                  
+                1px 0px 0px #FFF;
+}
 
     h5 {
         font-weight: 700;
         font-size: 1.25rem;        
-        color: black;
+        color: white;
         position: relative;
-left: 40px;
-top: -40px;
+        left: 40px;
+        top: -40px;
     }
     p {
         font-weight: 700;
         font-size: 1rem;
         color: #fff;
         position: relative;
-left: 150px;
-top: -60px;
+        left: 150px;
+        top: -60px;
         
     }
     img{
-        width: 200px;        
+        width: 140px;
         position: relative;
-        left: 15%;
-        top: -0px;
+        left: 50px;
+        top: 30px;
     }
 `;

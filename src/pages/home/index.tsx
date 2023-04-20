@@ -13,6 +13,7 @@ import { Card } from "../../components/card";
 import { useEffect, useState } from "react";
 import { ResponseObject } from "../../Utils/type";
 import Footer from "../../components/footer";
+import { ProductCard } from "../../components/card";
 
 
 export function Home() {
@@ -25,6 +26,7 @@ export function Home() {
                 const response = await fetch("http://localhost:3000/produtos");
                 const data = await response.json();
                 setResponseArray(data);
+                console.log(responseArray);
             } catch (error) {
                 console.error(error);
             }
@@ -60,14 +62,17 @@ export function Home() {
                             <Card
                                 key={item.id}
                                 id={item.id}
-                                title={item.title}
-                                description={item.description}
-                                goToUrl={item.goToUrl}
+                                nome={item.nome}
+                                preco={`R$ ${item.preco}`}
+                                goToUrl={`/products/${item.id}`}
+                                img={item.foto}
                             />
                         ))}
+
+
                     </section>
                 </Vitrine>
-                <Footer/>
+                <Footer />
             </ContainerHome>
         </>
     )

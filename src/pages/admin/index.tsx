@@ -8,6 +8,7 @@ import user from '../../store/modules/user';
 import ProductsTable from '../../components/adminfetch/products/get';
 import OrderList from '../../components/adminfetch/orders/get';
 import CategoryList from '../../components/adminfetch/Category/get';
+import CouponList from '../../components/adminfetch/cupon/get';
 
 interface User {
   id: number;
@@ -63,7 +64,7 @@ const Admin: FC = () => {
             // Render the content for the "Cupons" tab
             <div>
               <h2>Cupons</h2>
-              {/* Render the data for the "Cupons" tab */}
+              <CouponList/>
             </div>
           )}
           {activeTab === "pedidos" && (
