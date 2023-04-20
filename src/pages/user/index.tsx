@@ -42,7 +42,7 @@ function renderPedidos(pedidos) {
       const produtoItem = document.createElement('li');
 
        const produtoFoto = document.createElement('img');
-       produtoFoto.src = `/assets/${produto.foto}`;
+       produtoFoto.src = produto.foto;
 
       const produtoNome = document.createElement('p');
       produtoNome.innerText = `Nome: ${produto.nome}`;

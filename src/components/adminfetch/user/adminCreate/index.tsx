@@ -9,7 +9,7 @@ interface UserForm {
   senha: string;
 }
 
-const AdminUserCreate: FC = () => {
+const AdminNewCreate: FC = () => {
   const [userForm, setUserForm] = useState<UserForm>({ nome: '', email: '', senha: '' });
   const token = useSelector((state: any) => state.user.token || '');
   const dispatch = useDispatch();
@@ -18,9 +18,10 @@ const AdminUserCreate: FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const response = await api.post('http://localhost:3000/usuarios', userForm, {
+      const response = await api.post('http://localhost:3000/usuariosadmin', userForm, {
         headers: {
-          "Content-Type": "application/json",          
+          "Content-Type": "application/json",
+          Authorization:  `bearer ${token}`
         }
       });
       const newUser = response.data;
@@ -56,4 +57,4 @@ const AdminUserCreate: FC = () => {
   );
 };
 
-export default AdminUserCreate;
+export default AdminNewCreate;

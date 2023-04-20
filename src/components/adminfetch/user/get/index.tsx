@@ -29,7 +29,7 @@ const UserTable: FC = () => {
 
   useEffect(() => {
     const fetchDataUser = async () => {
-      const response = await api.get('http://localhost:3000/usuarios',{
+      const response = await api.get('http://localhost:3000/usuarios', {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -37,7 +37,7 @@ const UserTable: FC = () => {
       });
       const data = response.data;
       console.log("fetch data user")
-      
+
       setUsers(data);
     };
 
@@ -65,7 +65,7 @@ const UserTable: FC = () => {
             <td>{user.email}</td>
             <td>{user.tipo}</td>
             <td>{formatDate(user.createdAt)}</td>
-<td>{formatDate(user.updatedAt)}</td>
+            <td>{formatDate(user.updatedAt)}</td>
 
 
             <td>
@@ -74,17 +74,18 @@ const UserTable: FC = () => {
               </Link>
               <button
                 onClick={async () => {
-                    const confirmed = confirm('Are you sure you want to delete your profile? This action cannot be undone.');
-      if (confirmed) {
-                  await api.delete(`http://localhost:3000/usuarios/${user.id}`, {
-                    headers: {
-                      "Content-Type": "application/json",
-                      Authorization: `Bearer ${token}`,
-                    }
-                  });
-                  const updatedUsers = users.filter(u => u.id !== user.id);
-                  setUsers(updatedUsers);
-                }}}
+                  const confirmed = confirm('Are you sure you want to delete your profile? This action cannot be undone.');
+                  if (confirmed) {
+                    await api.delete(`http://localhost:3000/usuarios/${user.id}`, {
+                      headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                      }
+                    });
+                    const updatedUsers = users.filter(u => u.id !== user.id);
+                    setUsers(updatedUsers);
+                  }
+                }}
               >
                 Delete
               </button>

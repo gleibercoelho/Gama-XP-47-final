@@ -1,10 +1,13 @@
 import { FC, useState } from 'react';
-import Category from '../../components/category';
 import UserTable from '../../components/adminfetch/user/get';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Header } from '../../components/header';
-import UpdateUser from '../../components/adminfetch/user/update';
+import { NavLink } from 'react-router-dom';
+import user from '../../store/modules/user';
+import ProductsTable from '../../components/adminfetch/products/get';
+import OrderList from '../../components/adminfetch/orders/get';
+import CategoryList from '../../components/adminfetch/Category/get';
 
 interface User {
   id: number;
@@ -28,23 +31,24 @@ const Admin: FC = () => {
       <Header/>
       <aside>
         <ul>
-          <category name="categorias"><Link onClick={() => handleLinkClick("categorias")}>Categorias</Link></category>
-          <category name="cupons" ><Link onClick={() => handleLinkClick("cupons")}>Cupons</Link></category>
-          <category name="pedidos"><Link onClick={() => handleLinkClick("pedidos")}>Pedidos</Link></category>
-          <category name="produtos" ><Link onClick={() => handleLinkClick("produtos")}>Produtos</Link></category>
-          <category name="usuarios"><Link onClick={() => handleLinkClick("usuarios")}>Usuários</Link></category>
+          <li><a onClick={() => handleLinkClick("categorias")}>Categorias</a></li>
+          <li><a onClick={() => handleLinkClick("cupons")}>Cupons</a></li>
+          <li><a onClick={() => handleLinkClick("pedidos")}>Pedidos</a></li>
+          <li><a onClick={() => handleLinkClick("produtos")}>Produtos</a></li>
+          <li><a onClick={() => handleLinkClick("usuarios")}>Usuários</a></li>
         </ul>
       </aside>
       <main>
         <h1>Painel de controle</h1>
-        <a >Novo Evento</a>
+        
         <div >
         {activeTab === "usuarios" && (
             // Render the content for the "Usuários" tab
             <div>
                             <h2>Usuários</h2>
                             <UserTable fetchData={() => fetchData("usuarios")} />
-                            
+                            <NavLink to={"/admin/user"} ><button>Create new user</button></NavLink>
+                            <NavLink to={"/admin/create"} ><button>Create new Admin</button></NavLink>
                             
                         </div>
                     )}
@@ -52,6 +56,7 @@ const Admin: FC = () => {
             // Render the content for the "Categorias" tab
             <div>
               <h2>Categorias</h2>
+              <CategoryList/>
             </div>
           )}
           {activeTab === "cupons" && (
@@ -65,14 +70,17 @@ const Admin: FC = () => {
             // Render the content for the "Pedidos" tab
             <div>
               <h2>Pedidos</h2>
-              {/* Render the data for the "Pedidos" tab */}
+              <OrderList/>
+              <Link to={'/admin/orders'} ><button>Create New Order</button></Link>
             </div>
           )}
           {activeTab === "produtos" && (
             // Render the content for the "Produtos" tab
             <div>
               <h2>Produtos</h2>
-              {/* Render the data for the "Produtos" tab */}
+              {<ProductsTable fetchDataProducts={() => fetchDataProducts("produtos")} />}
+              <NavLink to={"/admin/products"} ><button>Create new product</button></NavLink>
+                            
             </div>
           )}
           
