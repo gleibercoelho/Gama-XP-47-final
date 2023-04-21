@@ -4,6 +4,8 @@ import { Header } from "../../components/header";
 import Pagination from "../../components/pagination";
 import { Link } from "react-router-dom";
 import Footer from "../../components/footer";
+import { ProductsDiv } from "./style";
+import { DivEspecial } from "./style";
 
 interface Produto {
   id: number;
@@ -55,61 +57,66 @@ const Products = () => {
 
   return (
     <>
+
       <Header></Header>
-      <div>
-        <div>
-          <label>
-            <input
-              type="checkbox"
-              checked={selectedCategories.length === 0}
-              onChange={showAllProducts}
-            />
-            Toda loja
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              checked={selectedCategories.includes("hardware")}
-              onChange={() => handleCategoryFilter("hardware")}
-            />
-            Hardware
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              checked={selectedCategories.includes("Gadgets")}
-              onChange={() => handleCategoryFilter("Gadgets")}
-            />
-            Gadget
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              checked={selectedCategories.includes("console")}
-              onChange={() => handleCategoryFilter("console")}
-            />
-            Console
-          </label>
-        </div>
-        {paginatedProdutos.map((produto) => (
-          <div key={produto.id}>
-            <h2>{produto.nome}</h2>
-            <Link to={`/products/${produto.id}`}>
-              <img src={produto.foto} alt={produto.nome} />
-            </Link>
-            <p>{produto.preco}</p>
-            <p>{produto.descricao}</p>
-            <p>{produto.categoria}</p>
-          </div>
-        ))}
-      </div>
-      <Pagination
-        limit={limit}
-        total={total}
-        offset={offset}
-        setOffset={setOffset}
-      />
-      <Footer/>
+      <ProductsDiv>
+        
+          <aside>
+            <label>
+              <input
+                type="checkbox"
+                checked={selectedCategories.length === 0}
+                onChange={showAllProducts}
+              />
+              Toda loja
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={selectedCategories.includes("PC")}
+                onChange={() => handleCategoryFilter("PC")}
+              />
+              PC
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={selectedCategories.includes("Gadget")}
+                onChange={() => handleCategoryFilter("Gadget")}
+              />
+              Gadgets
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={selectedCategories.includes("Consoles")}
+                onChange={() => handleCategoryFilter("Consoles")}
+              />
+              Consoles
+            </label>
+          </aside>
+          
+          <main>
+            {paginatedProdutos.map((produto) => (
+              <DivEspecial id="renderDiv" key={produto.id}>
+                <h2 >{produto.nome}</h2>
+                <Link to={`/products/${produto.id}`}>
+                  <img src={produto.foto} alt={produto.nome} />
+                </Link>
+                <p>{`RS ${produto.preco},00`}</p> <Link to={`/products/${produto.id}`} ><button>Saiba Mais</button> </Link>             
+              </DivEspecial>
+            ))}
+          </main>
+        
+
+        <Pagination
+          limit={limit}
+          total={total}
+          offset={offset}
+          setOffset={setOffset}
+        />
+      </ProductsDiv>
+      <Footer />
     </>
   );
 };

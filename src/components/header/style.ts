@@ -30,6 +30,7 @@ a{
     li{
     width: 100%;
     list-style: none;
+    cursor: pointer;
     
     
  }

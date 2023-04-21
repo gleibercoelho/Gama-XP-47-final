@@ -33,7 +33,8 @@ text-shadow: {
 
     h5 {
         font-weight: 700;
-        font-size: 1.25rem;        
+        font-size: 1.25rem;
+        alig        
         color: white;
         position: relative;
         left: 40px;

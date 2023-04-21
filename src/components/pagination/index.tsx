@@ -1,4 +1,5 @@
 import React from 'react';
+import { PaginationDiv } from './style';
 
 const MAX_ITEMS = 9;
 const MAX_LEFT = (MAX_ITEMS - 1) / 2;
@@ -18,6 +19,7 @@ const Pagination = ({
   }
 
   return (
+    <PaginationDiv>
     <ul className="pagination">
       <li>
         <button
@@ -52,6 +54,7 @@ const Pagination = ({
         </button>
       </li>
     </ul>
+    </PaginationDiv>
   );
 };
 

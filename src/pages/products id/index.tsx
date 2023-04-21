@@ -6,6 +6,7 @@ import Footer from "../../components/footer";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/modules/cart";
 import { DivMaster } from "./style";
+import { FotoProductDiv } from "./style";
 
 interface Produto {
   nome: string;
@@ -43,13 +44,22 @@ const ProductDetail = () => {
     <>
       <Header />
       <DivMaster>
-        <h2>{product.nome}</h2>
-        <img src={product.foto} alt={product.nome} />
-        <p>{product.descricao}</p>
-        <p>{product.preco}</p>
-        <p>{product.categoria}</p>
-        {/* add any other product details you want to display */}
-        <button onClick={handleAddToCart}>Add to Cart</button>
+        <FotoProductDiv>
+          <img src={product.foto} alt={product.nome} />
+        </FotoProductDiv>
+        <div>
+          <h2>{product.nome}</h2>
+
+          <p>Detalhes do produto: Lorem ipsum dolor sit amet consectetur 
+            adipisicing elit. Illum ratione esse aliquid perferendis ea accusantium
+             sapiente magnam. Voluptate quo et maiores. Molestiae facere exercitationem
+              recusandae vel blanditiis voluptatum suscipit a mollitia itaque tempore laboriosam
+               similique quod necessitatibus amet officiis, quibusdam voluptatibus eveniet numquam
+                nisi eum in inventore veritatis repellat? Sequi. {product.descricao}</p>
+          <h3>RS {product.preco},00</h3>
+          {/* add any other product details you want to display */}
+          <button onClick={handleAddToCart}>Add to Cart</button>
+        </div>
       </DivMaster>
       <Footer />
     </>
