@@ -44,21 +44,28 @@ const ProductDetail = () => {
     <>
       <Header />
       <DivMaster>
-        <FotoProductDiv>
-          <img src={product.foto} alt={product.nome} />
+        <FotoProductDiv >
+          <div className="thumbnails">
+            <img src={product.foto} alt={product.nome} />
+            <img src={product.foto} alt={product.nome} />
+            <img src={product.foto} alt={product.nome} />
+          </div>
+          <img className="main-photo" src={product.foto} alt={product.nome} />
+
+
         </FotoProductDiv>
-        <div>
+        <div className="infoDiv">
           <h2>{product.nome}</h2>
 
-          <p>Detalhes do produto: Lorem ipsum dolor sit amet consectetur 
+          <p>Detalhes do produto: Lorem ipsum dolor sit amet consectetur
             adipisicing elit. Illum ratione esse aliquid perferendis ea accusantium
-             sapiente magnam. Voluptate quo et maiores. Molestiae facere exercitationem
-              recusandae vel blanditiis voluptatum suscipit a mollitia itaque tempore laboriosam
-               similique quod necessitatibus amet officiis, quibusdam voluptatibus eveniet numquam
-                nisi eum in inventore veritatis repellat? Sequi. {product.descricao}</p>
-          <h3>RS {product.preco},00</h3>
-          {/* add any other product details you want to display */}
-          <button onClick={handleAddToCart}>Add to Cart</button>
+            sapiente magnam. Voluptate quo et maiores. Molestiae facere exercitationem
+            recusandae vel blanditiis voluptatum suscipit  {product.descricao}</p>
+          <div className="priceDiv">
+            <h3>R$ {product.preco},00</h3>
+            {/* add any other product details you want to display */}
+            <button onClick={handleAddToCart}>POR NO CARINHO</button>
+          </div>
         </div>
       </DivMaster>
       <Footer />

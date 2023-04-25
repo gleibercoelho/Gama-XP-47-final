@@ -7,6 +7,7 @@ import { api } from '../../services/api';
 import { setUser, removeUser } from '../../store/modules/user';
 import { AnyAction } from 'redux';
 import { useNavigate } from 'react-router-dom';
+import { UserDivMaster } from './style';
 
 
 
@@ -270,21 +271,10 @@ const ProfilePage = () => {
     });
   }
 
-
-
-
-
-
-
-
-
-
-
-
   return (
     <>
       <Header />
-      <div>
+      <UserDivMaster>
         {user ? (
           <div>
             <h1>{fetchedUserData?.nome}</h1>
@@ -317,7 +307,7 @@ const ProfilePage = () => {
         ) : (
           <p>Loading user information...</p>
         )}
-      </div>
+      </UserDivMaster>
       <Footer />
     </>
   );

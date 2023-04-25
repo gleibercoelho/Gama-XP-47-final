@@ -11,48 +11,49 @@ display: flex;
     background: green;
     border-radius: 20px;    
     margin: 10px;
-    overflow: hidden;
+    
     
         
     
     &:hover {
-        box-shadow: 1px 5px 29px -13px rgba(37, 190, 68, 0.5);
+       
     }
 `;
 
 export const Content = styled.div`
 font-family: "roboto", sans-serif;
 display: flex;
-flex-direction: column;
-text-shadow: {
-               -1px -1px 0px #FFF, 
-               -1px 1px 0px #FFF,                    
-                1px -1px 0px #FFF,                  
-                1px 0px 0px #FFF;
-}
+flex-direction: row;
+align-items: center;
+
 
     h5 {
         font-weight: 700;
-        font-size: 1.25rem;
-        alig        
+        font-size: 1.25rem; 
         color: white;
-        position: relative;
-        left: 40px;
-        top: -40px;
+        z-index: 1;
+        margin-bottom: 100px;
+
+        
+        
     }
     p {
         font-weight: 700;
         font-size: 1rem;
         color: #fff;
-        position: relative;
-        left: 150px;
-        top: -60px;
+        z-index: 1;
+        margin-left: 160px;
+        margin-bottom: 150px;
+        
+        
         
     }
     img{
         width: 140px;
+        height: 150px;        
+        object-fit: contain;
+        z-index: 0;
         position: relative;
-        left: 50px;
-        top: 30px;
+        top: 150px;
     }
 `;

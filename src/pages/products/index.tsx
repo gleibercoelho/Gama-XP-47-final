@@ -20,6 +20,7 @@ const Products = () => {
   const [produtos, setProdutos] = useState<Produto[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [offset, setOffset] = useState<number>(0);
+  const colors = ["rgb(37, 190, 68)", "red", "orange", "#f5de0c", "pink", "blue"];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,54 +61,57 @@ const Products = () => {
 
       <Header></Header>
       <ProductsDiv>
-        
-          <aside>
-            <label>
-              <input
-                type="checkbox"
-                checked={selectedCategories.length === 0}
-                onChange={showAllProducts}
-              />
-              Toda loja
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                checked={selectedCategories.includes("PC")}
-                onChange={() => handleCategoryFilter("PC")}
-              />
-              PC
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                checked={selectedCategories.includes("Gadget")}
-                onChange={() => handleCategoryFilter("Gadget")}
-              />
-              Gadgets
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                checked={selectedCategories.includes("Consoles")}
-                onChange={() => handleCategoryFilter("Consoles")}
-              />
-              Consoles
-            </label>
-          </aside>
-          
-          <main>
-            {paginatedProdutos.map((produto) => (
-              <DivEspecial id="renderDiv" key={produto.id}>
-                <h2 >{produto.nome}</h2>
+
+        <aside>
+          <label>
+            <input
+              type="checkbox"
+              checked={selectedCategories.length === 0}
+              onChange={showAllProducts}
+            />
+            Toda loja
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={selectedCategories.includes("PC")}
+              onChange={() => handleCategoryFilter("PC")}
+            />
+            PC
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={selectedCategories.includes("Gadget")}
+              onChange={() => handleCategoryFilter("Gadget")}
+            />
+            Gadgets
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={selectedCategories.includes("Consoles")}
+              onChange={() => handleCategoryFilter("Consoles")}
+            />
+            Consoles
+          </label>
+        </aside>
+
+        <main>
+          <div id="container">
+            {paginatedProdutos.map((produto, index) => (
+              <DivEspecial id="renderDiv" key={produto.id} style={{ backgroundColor: colors[Math.floor(Math.random() * colors.length)] }}>
+                <h2>{produto.nome}</h2>
                 <Link to={`/products/${produto.id}`}>
                   <img src={produto.foto} alt={produto.nome} />
                 </Link>
-                <p>{`RS ${produto.preco},00`}</p> <Link to={`/products/${produto.id}`} ><button>Saiba Mais</button> </Link>             
+                <p>{`RS ${produto.preco},00`}</p>
+                <Link to={`/products/${produto.id}`}><button>Saiba Mais</button></Link>
               </DivEspecial>
             ))}
-          </main>
-        
+          </div>
+        </main>
+
 
         <Pagination
           limit={limit}

@@ -8,6 +8,8 @@ import Footer from "../../components/footer";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
+import { DivMasterCart } from "./style";
+
 
 interface Produto {
   id: number;
@@ -77,7 +79,7 @@ function CartPage() {
           console.log(pedidoId);
           alert('checkout successful!');
           handleClearCart();
-          navigate('/checkout'+'?id=' +`${pedidoId}`);
+          navigate('/checkout' + '?id=' + `${pedidoId}`);
         } else {
           throw new Error('Error signing up');
         }
@@ -155,23 +157,24 @@ function CartPage() {
   return (
     <>
       <Header />
-      <div>
-        <h1>Cart Page</h1>
+      <DivMasterCart>
+        <h1>Carrinho</h1>
         {cart.cartItems.length === 0 ? (
-          <>
-            <p>Your cart is empty</p>
-            <NavLink to="/" ><button> Voltar a Loja</button></NavLink>
-          </>
+          <section>
+            <p>Seu carrinho está vazio!</p>
+            <NavLink to="/products" ><button> Voltar a Loja</button></NavLink>
+          </section>
         ) : (
-          <>
+          <div>
             <table>
               <thead>
                 <tr>
-                  <th>Product</th>
-                  <th>Unit Price</th>
-                  <th>Quantity</th>
-                  <th>Total Price</th>
-                  <th>Remove</th>
+                  <th>Foto</th>
+                  <th>Produto</th>
+                  <th>Preço unitário</th>
+                  <th>Quantidade</th>
+                  <th>Total parcial</th>
+                  <th>Remover</th>
                 </tr>
               </thead>
               <tbody>
@@ -181,11 +184,13 @@ function CartPage() {
                   const unitPrice = getProductPrice(item.id);
                   const totalProductPrice = getProductTotalPrice(item.id);
                   return (
+
                     <tr key={product.id}>
+                      <td><img src={product.foto} alt="" /></td>
                       <td>{product.nome}</td>
-                      <td>${unitPrice.toFixed(2)}</td>
+                      <td>R${unitPrice.toFixed(2)}</td>
                       <td>
-                        <button onClick={() => handleDecrease(product)}>
+                        <button  onClick={() => handleDecrease(product)}>
                           -
                         </button>
                         {item.cartQuantity}
@@ -193,7 +198,7 @@ function CartPage() {
                           +
                         </button>
                       </td>
-                      <td>${totalProductPrice.toFixed(2)}</td>
+                      <td>R${totalProductPrice.toFixed(2)}</td>
                       <td>
                         <button onClick={() => handleRemove(product)}>X</button>
                       </td>
@@ -204,7 +209,7 @@ function CartPage() {
               <tfoot>
                 <tr>
                   <td colSpan="4" className="total">
-                    Total Quantity: {cart.cartTotalQuantity} | Total Amount: $
+                    Quantidade de produtos: {cart.cartTotalQuantity} | Valor total: R$
                     {cart.cartTotalAmount.toFixed(2)}
                   </td>
                 </tr>
@@ -212,7 +217,7 @@ function CartPage() {
             </table>
             <form>
               <label>
-                Coupon code:
+                Código do cupom:
                 <input
                   type="text"
                   value={coupon}
@@ -220,21 +225,20 @@ function CartPage() {
                 />
               </label>
               <button type="button" onClick={() => handleVerifyCoupon(coupon)}>
-                Verify
+                Verificar
               </button>
               {couponError && <p>{couponError}</p>}
             </form>
-            <button onClick={handleClearCart}>Clear Cart</button>
-            <button onClick={() => handleCheckout(coupon)}>Check out</button>
 
-            <div>
-              <NavLink to="/products"> <button>
-                Keep Shopping
-              </button></NavLink>
+
+            <div  className="keep-shopping">
+              <button onClick={handleClearCart}>Limpar carinho</button>
+              <NavLink to="/products"> <button>Continuar Comprando</button></NavLink>
+              <button onClick={() => handleCheckout(coupon)}>Check out</button>
             </div>
-          </>
+          </div>
         )}
-      </div>
+      </DivMasterCart>
       <Footer />
     </>
   );

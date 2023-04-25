@@ -13,7 +13,7 @@ import { Card } from "../../components/card";
 import { useEffect, useState } from "react";
 import { ResponseObject } from "../../Utils/type";
 import Footer from "../../components/footer";
-import { ProductCard } from "../../components/card";
+
 
 
 export function Home() {
@@ -35,6 +35,8 @@ export function Home() {
         fetchData();
     }, []);
 
+    const colors = ["rgb(37, 190, 68)", "red", "orange", "#f5de0c", "pink", "blue"];
+
     return (
         <>
             <Header />
@@ -51,7 +53,7 @@ export function Home() {
                     <CardUm backgroundColor="orange" h3="Play" img={oculus} h2="Game" h1="Oculus" />
                     <CardUm backgroundColor="#f5de0c" h3="Enjoy" img={earphone} h2="with" h1="Earphone" />
                     <CardUm backgroundColor="pink" h3="Now" img={speaker} h2="Amazing" h1="Speaker" />
-                    <CardDois backgroundColor="blue" h3="Bost" img={console} h2="Gaming" h1="Console" />
+                    <CardDois backgroundColor="blue" h3="Best" img={console} h2="Gaming" h1="Console" />
 
                 </ContentCards>
                 <Vitrine>
@@ -59,11 +61,12 @@ export function Home() {
                         <span>BUY IT NOW</span></div>
                     <section>
                         {responseArray.slice(0, 8).map((item: ResponseObject) => (
-                            <Card
-                                key={item.id}
+                            <Card key={item.id} style={{ backgroundColor: colors[Math.floor(Math.random() * colors.length)] }}
+                             
+                               
                                 id={item.id}
                                 nome={item.nome}
-                                preco={`R$ ${item.preco}`}
+                                preco={`R$ ${item.preco} .00 ` }
                                 goToUrl={`/products/${item.id}`}
                                 img={item.foto}
                             />

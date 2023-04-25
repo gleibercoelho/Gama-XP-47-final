@@ -46,6 +46,7 @@ img{
     left: 37%;
     top: -130%;
     z-index: 1;
+    object-fit: contain;
     
     
 }

@@ -2,6 +2,11 @@ import { api } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../../components/header";
 import Footer from "../../components/footer";
+import {BannerSignIn, SignInDivMaster, MainDivSignIn} from "./style"
+import logo from "../../assets/images/logo.png"
+import { LockKeyOpen } from "@phosphor-icons/react";
+import gameboy from "../../assets/images/gameboy.png"
+
 
 export default function SignUp() {
     const navigate = useNavigate();
@@ -30,20 +35,43 @@ export default function SignUp() {
 
     return (
         <>
+        
+        
+        
         <Header/>
+        <MainDivSignIn>
+        
+            <BannerSignIn>
+            <h3>Play</h3>
+        <h2>Pure</h2>
+        <h1>Nostalgia</h1>
+        <img src={gameboy} alt="" />
+            </BannerSignIn>
+            <SignInDivMaster>
+            <div className="welcome">
+                <p>
+                    Inscreva-se
+                </p>
+                <img src={logo} alt="" />
+            </div>
+        
             <form onSubmit={handleSubmitSignUp}>
-                <label htmlFor="name-input">Name:</label>
-                <input type="text" id="name-input" name="name" required />
+                <label htmlFor="name-input">Nome:</label>
+                <input type="text" id="name-input" name="name" required placeholder="Escreva seu nome" />
 
                 <label htmlFor="email-input">Email:</label>
-                <input type="email" id="email-input" name="email" required />
+                <input type="email" id="email-input" name="email" required placeholder="Escreva seu email"/>
 
-                <label htmlFor="password-input">Password:</label>
-                <input type="password" id="password-input" name="password" required />
+                <label htmlFor="password-input">Senha:</label>
+                <input type="password" id="password-input" name="password" required placeholder="Escreva seu senha"/>
 
-                <button type="submit">Sign up</button>
+                <button type="submit">Inscrever{<LockKeyOpen size={16} color="#ffffff" />} </button>
             </form>
+            
+            </SignInDivMaster>
+            </MainDivSignIn>
             <Footer/>
+            
         </>
     )
 };

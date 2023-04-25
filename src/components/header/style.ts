@@ -7,11 +7,14 @@ display: flex;
 flex-direction: row;
 width: 100wh;
 font-family: "roboto", sans-serif;
-justify-content: space-between;
+justify-content: space-evenly;
 img{
     width: 60px;
+    object-fit: contain;
 }
 a{
+   display:flex;
+        flex-direction: row;
    text-decoration: none;
    cursor: pointer;
    
@@ -31,6 +34,8 @@ a{
     width: 100%;
     list-style: none;
     cursor: pointer;
+    display:flex;
+        flex-direction: row;
     
     
  }
