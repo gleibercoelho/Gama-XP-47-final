@@ -10,6 +10,18 @@ function UpdateOrder() {
   const [valor, setValor] = useState("");
   const token = useSelector((state: any) => state.user.token || '');
 
+
+  const tipo = useSelector((state: any) => state.user && state.user.tipo);
+  
+  const [shouldReload, setShouldReload] = useState(false);
+
+  useEffect(() => {
+    if (tipo === "user" || !tipo) {
+      // Redirect to login page if user is not logged in
+      navigate('/');
+    } 
+  }, [tipo, shouldReload]);
+
   useEffect(() => {
     api.get(`http://localhost:3000/pedidos/${id}`, {
       headers: {

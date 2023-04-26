@@ -9,6 +9,8 @@ import ProductsTable from '../../components/adminfetch/products/get';
 import OrderList from '../../components/adminfetch/orders/get';
 import CategoryList from '../../components/adminfetch/Category/get';
 import CouponList from '../../components/adminfetch/cupon/get';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 interface User {
   id: number;
@@ -24,6 +26,18 @@ const Admin: FC = () => {
   const handleLinkClick = (endpoint: string) => {
     setActiveTab(endpoint);
   };
+
+
+  const tipo = useSelector((state: any) => state.user && state.user.tipo);
+  const navigate = useNavigate();
+  const [shouldReload, setShouldReload] = useState(false);
+
+  useEffect(() => {
+    if (tipo === user || !tipo) {
+      // Redirect to login page if user is not logged in
+      navigate('/');
+    } 
+  }, [tipo, shouldReload]);
 
 
 

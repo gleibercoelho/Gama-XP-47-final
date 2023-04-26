@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Header } from '../../components/header';
 import Footer from '../../components/footer';
-import { RootState } from '../../store';
 import { api } from '../../services/api';
-import { setUser, removeUser } from '../../store/modules/user';
+import { removeUser } from '../../store/modules/user';
 import { AnyAction } from 'redux';
 import { useNavigate } from 'react-router-dom';
 import { UserDivMaster } from './style';
+
 
 
 
@@ -26,52 +26,6 @@ interface UserData {
   createdat: string;
 }
 
-function renderPedidos(pedidos) {
-  const pedidoList = document.createElement('ul');
-
-  pedidos.forEach(pedido => {
-    const pedidoItem = document.createElement('li');
-
-    const pedidoValor = document.createElement('p');
-    pedidoValor.innerText = `Total amount: ${pedido.valor}`;
-
-    const pedidoData = document.createElement('p');
-    pedidoData.innerText = `Data da compra: ${new Date(pedido.createdAt).toLocaleDateString()}`;
-
-    const produtosList = document.createElement('ul');
-    pedido.Produtos.forEach(produto => {
-      const produtoItem = document.createElement('li');
-
-       const produtoFoto = document.createElement('img');
-       produtoFoto.src = produto.foto;
-
-      const produtoNome = document.createElement('p');
-      produtoNome.innerText = `Nome: ${produto.nome}`;
-
-      const produtoPreco = document.createElement('p');
-      produtoPreco.innerText = `Preço unitário: ${produto.preco}`;
-
-      const detalhePedido = produto.DetalhesPedido;
-      const detalhePedidoQuantidade = document.createElement('p');
-      detalhePedidoQuantidade.innerText = `Quantidade: ${detalhePedido.quantidade}`;
-
-      const partialAmount = produto.preco * detalhePedido.quantidade;
-      const partialAmountElement = document.createElement('p');
-      partialAmountElement.innerText = `Partial amount: ${partialAmount}`;
-
-      produtoItem.append(produtoFoto, produtoNome, produtoPreco, detalhePedidoQuantidade, partialAmountElement);
-      produtosList.appendChild(produtoItem);
-    });
-
-    pedidoItem.append(pedidoValor, pedidoData, produtosList);
-    pedidoList.appendChild(pedidoItem);
-  });
-
-  return pedidoList;
-}
-
-
-
 const ProfilePage = () => {
   const [user, setUser] = useState<UserData>();
   const isLogged = useSelector((state: any) => state.user.isLogged);
@@ -85,7 +39,9 @@ const ProfilePage = () => {
   const [shouldReload, setShouldReload] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [showTable, setShowTable] = useState(false);
+
 
 
 
@@ -169,63 +125,21 @@ const ProfilePage = () => {
 
 
 
-  interface Pedido {
-    id: number;
-    usuario_id: number;
-    cupom: string;
-    valor: number;
-    createdAt: string;
-    updatedAt: string;
-    Produtos: Produto[];
-  }
-
-  const fetchButton = document.getElementById('fetch-button');
-  if (fetchButton) {
-    let isDataRendered = false;
-
-    fetchButton.addEventListener('click', () => {
-      fetch(`http://localhost:3000/pedidos/?usuario_id=${userId}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        }
+  const fetchOrders = () => {
+    fetch(`http://localhost:3000/pedidosusuario/${userId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setOrders(data);
+        setShowTable(true); // show the table after orders are fetched
       })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then(data => {
-          const filteredData = data.filter((pedido: Pedido) => {
-            return pedido.usuario_id === userId &&
-              pedido.Produtos.some(produto => produto.DetalhesPedido && produto.DetalhesPedido.quantidade > 0);
-          });
+      .catch((error) => console.log(error));
+  };
 
-          const pedidoList = renderPedidos(filteredData);
-          const pedidoContainer = document.getElementById('pedido-container');
-          if (pedidoContainer) {
-            if (isDataRendered) {
-              pedidoContainer.innerHTML = '';
-              isDataRendered = false;
-              fetchButton.textContent = 'Show My Orders';
-            } else {
-              pedidoContainer.appendChild(pedidoList);
-              isDataRendered = true;
-              fetchButton.textContent = 'Hide My Orders';
-            }
-          }
-        })
-        .catch(error => {
-          console.error(error);
-          // Display error message to the user
-          const errorMessage = document.createElement('p');
-          errorMessage.textContent = 'An error occurred while fetching orders. Please try again later.';
-          const pedidoContainer = document.getElementById('pedido-container');
-          pedidoContainer?.appendChild(errorMessage);
-        });
-    });
-  }
 
 
   // delete user
@@ -255,10 +169,10 @@ const ProfilePage = () => {
         })
           .then(response => {
             if (response.status = 204) {
-              alert("User profile deleted successfully");         
-              handleLogout();         
+              alert("User profile deleted successfully");
+              handleLogout();
               navigate('/login');
-              
+
             } else {
               // Handle error response
               console.error('Error deleting user profile');
@@ -277,7 +191,7 @@ const ProfilePage = () => {
       <UserDivMaster>
         {user ? (
           <div>
-            <h1>{fetchedUserData?.nome}</h1>
+            <h1>Nome: {fetchedUserData?.nome}</h1>
             <p>Email: {fetchedUserData?.email}</p>
             {showUpdateForm && (
               <form onSubmit={handleSubmit}>
@@ -292,16 +206,66 @@ const ProfilePage = () => {
                  
                     setShowUpdateForm(!showUpdateForm);
                   }
-                } */ type="submit">Update Profile</button>
+                } */ type="submit">Atualizar!</button>
               </form>
             )}
-            <button onClick={() => setShowUpdateForm(!showUpdateForm)}>Update Profile</button>
-            <button id="fetch-button">Meus pedidos</button>
+            <button onClick={() => setShowUpdateForm(!showUpdateForm)}>Atualizar meu perfil</button>
+            <button onClick={fetchOrders}>Minhas Compras</button>
+            <button id='delete-profile-button'>deletar minha conta</button>
             <div id="pedido-container">
-              <ul>{renderPedidos}</ul>
+              {showTable && ( // conditionally render the table HTML
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Pedido ID</th>
+                      <th>Cliente ID</th>
+                      <th>Total da compra</th>
+                      <th>Data da compra</th>
+                      <th>Produtos</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {orders.map((order) => (
+                      <tr key={order.id}>
+                        <td>{order.id}</td>
+                        <td>{order.usuario_id}</td>
+                        <td>{order.valor}</td>
+                        <td>{new Date(order.createdAt).toLocaleDateString()}</td>
+                        <td>
+                          <table>
+                            <thead>
+                              <tr>
+                                <th>Nome Produto</th>
+                                <th>Quantidade</th>
+                                <th>foto</th>
+                                <th>Preço unitário</th>
+                                <th>Preço parcial</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {order.Produtos.map((produto) => (
+                                <tr key={produto.id}>
+                                  <td>{produto.nome}</td>
+                                  <td>{produto.DetalhesPedido.quantidade}</td>
+                                  <td>
+                                    <img src={`http://localhost:3000/imagens/${produto.foto}`} alt={produto.nome} />
+                                  </td>
+                                  <td>{produto.preco}</td>
+                                  <td>{produto.preco * produto.DetalhesPedido.quantidade}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
             </div>
             <div>
-              <button id='delete-profile-button'>deletar minha conta</button>
+              
             </div>
           </div>
         ) : (

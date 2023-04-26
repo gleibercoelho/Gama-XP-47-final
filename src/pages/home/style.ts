@@ -50,6 +50,10 @@ img{
     
     
 }
+div.footerHome{
+    background-color: red;
+    margin-top: 100px;
+}
 
 `
 export const ContentCards = styled.div`
@@ -97,5 +101,7 @@ h3{
     font-size: 40px;
     color: black;
 }
+
+
 `
         

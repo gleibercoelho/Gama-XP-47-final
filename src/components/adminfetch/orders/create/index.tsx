@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../../../services/api";
+import { useEffect } from "react";
 
 function CreateOrder() {
   const [productList, setProductList] = useState([
@@ -11,6 +12,17 @@ function CreateOrder() {
   const [errorMessage, setErrorMessage] = useState("");
   const token = useSelector((state: any) => state.user.token || '');
   const navigate = useNavigate();
+
+  const tipo = useSelector((state: any) => state.user && state.user.tipo);
+  
+  const [shouldReload, setShouldReload] = useState(false);
+
+  useEffect(() => {
+    if (tipo === "user" || !tipo) {
+      // Redirect to login page if user is not logged in
+      navigate('/');
+    } 
+  }, [tipo, shouldReload]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();

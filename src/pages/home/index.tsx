@@ -75,7 +75,7 @@ export function Home() {
 
                     </section>
                 </Vitrine>
-                <Footer />
+                <Footer className="footerHome" />
             </ContainerHome>
         </>
     )

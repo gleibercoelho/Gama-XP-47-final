@@ -30,6 +30,17 @@ const UpdateProducts: FC = () => {
     const token = useSelector((state: any) => state.user.token || '');
     const navigate = useNavigate();
 
+    const tipo = useSelector((state: any) => state.user && state.user.tipo);
+  
+  const [shouldReload, setShouldReload] = useState(false);
+
+  useEffect(() => {
+    if (tipo === "user" || !tipo) {
+      // Redirect to login page if user is not logged in
+      navigate('/');
+    } 
+  }, [tipo, shouldReload]);
+
     useEffect(() => {
         const fetchProducts = async () => {
             try {

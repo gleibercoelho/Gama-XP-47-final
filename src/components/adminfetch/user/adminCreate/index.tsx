@@ -2,6 +2,8 @@ import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { api } from '../../../../services/api';
 import { useNavigate }  from 'react-router-dom';
+import { useEffect } from 'react';
+;
 
 interface UserForm {
   nome: string;
@@ -14,6 +16,17 @@ const AdminNewCreate: FC = () => {
   const token = useSelector((state: any) => state.user.token || '');
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const tipo = useSelector((state: any) => state.user && state.user.tipo);
+  
+  const [shouldReload, setShouldReload] = useState(false);
+
+  useEffect(() => {
+    if (tipo === "user" || !tipo) {
+      // Redirect to login page if user is not logged in
+      navigate('/');
+    } 
+  }, [tipo, shouldReload]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

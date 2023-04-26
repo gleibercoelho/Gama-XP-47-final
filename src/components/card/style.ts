@@ -40,7 +40,7 @@ align-items: center;
     p {
         font-weight: 700;
         font-size: 1rem;
-        color: #fff;
+        color: black;
         z-index: 1;
         margin-left: 160px;
         margin-bottom: 150px;
