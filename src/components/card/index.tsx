@@ -1,4 +1,4 @@
-import { ContainerCard, Content } from "./style";
+import { ContainerCard, Content, Clearfix } from "./style";
 import { ResponseObject } from "../../Utils/type";
 
 interface ICardProps {
@@ -17,8 +17,9 @@ export const Card: React.FC<ICardProps> = ({ id, key, nome, preco, img, goToUrl,
       <Content>
         <img src={img} alt={nome} />
         <h5>{nome}</h5>
-        <p>{preco}</p>
+        <p>{preco}</p>        
       </Content>
+      <Clearfix/>
     </ContainerCard>
   );
 };

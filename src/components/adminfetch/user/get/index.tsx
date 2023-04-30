@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { api } from '../../../../services/api';
 import { Link } from 'react-router-dom';
+import { UsersTable } from './style';
 
 interface User {
   id: number;
@@ -45,6 +46,7 @@ const UserTable: FC = () => {
   }, []);
 
   return (
+    <UsersTable>
     <table>
       <thead>
         <tr>
@@ -94,6 +96,7 @@ const UserTable: FC = () => {
         ))}
       </tbody>
     </table>
+    </UsersTable>
   );
 };
 

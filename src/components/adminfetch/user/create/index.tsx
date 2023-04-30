@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { api } from '../../../../services/api';
 import { useNavigate }  from 'react-router-dom';
 import { useEffect } from 'react';
+import { CreateUserPage } from './style';
+import { NavLink } from 'react-router-dom';
 
 interface UserForm {
   nome: string;
@@ -50,8 +52,10 @@ const AdminUserCreate: FC = () => {
   };
 
   return (
+    <CreateUserPage>
     <form onSubmit={handleSubmit}>
       <div>
+        <h2>Creater a new user</h2>
         <label htmlFor="name">Name:</label>
         <input type="text" name="nome" id="name" value={userForm.nome} onChange={handleChange} required />
       </div>
@@ -65,6 +69,9 @@ const AdminUserCreate: FC = () => {
       </div>
       <button type="submit">Create user</button>
     </form>
+    <NavLink to="/admin" ><button>Painel de Controle</button></NavLink>
+    </CreateUserPage>
+
   );
 };
 

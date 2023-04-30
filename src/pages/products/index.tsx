@@ -20,12 +20,20 @@ const Products = () => {
   const [produtos, setProdutos] = useState<Produto[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [offset, setOffset] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(true);
   const colors = ["rgb(37, 190, 68)", "red", "orange", "#f5de0c", "pink", "blue"];
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await api.get("http://localhost:3000/produtos");
-      setProdutos(result.data);
+      try {
+        const result = await api.get("http://localhost:3000/produtos");
+        setProdutos(result.data);
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+        setProdutos([]);
+        setLoading(false);
+      }
     };
     fetchData();
   }, []);
@@ -56,12 +64,11 @@ const Products = () => {
   const total = filteredProdutos.length;
   const paginatedProdutos = filteredProdutos.slice(offset, offset + limit);
 
+
   return (
     <>
-
-      <Header></Header>
+      <Header />
       <ProductsDiv>
-
         <aside>
           <label>
             <input
@@ -96,33 +103,53 @@ const Products = () => {
             Consoles
           </label>
         </aside>
-
-        <main>
-          <div id="container">
-            {paginatedProdutos.map((produto, index) => (
-              <DivEspecial id="renderDiv" key={produto.id} style={{ backgroundColor: colors[Math.floor(Math.random() * colors.length)] }}>
-                <h2>{produto.nome}</h2>
-                <Link to={`/products/${produto.id}`}>
-                  <img src={produto.foto} alt={produto.nome} />
-                </Link>
-                <p>{`RS ${produto.preco},00`}</p>
-                <Link to={`/products/${produto.id}`}><button>Saiba Mais</button></Link>
-              </DivEspecial>
-            ))}
-          </div>
-        </main>
-
-
+  
+        {loading ? (
+          <div className="loading">Loading...</div>
+        ) : (
+          <main>
+            <div id="container">
+              {paginatedProdutos.map((produto, index) => (
+                <DivEspecial
+                  id="renderDiv"
+                  key={produto.id}
+                  style={{
+                    backgroundColor: colors[
+                      Math.floor(Math.random() * colors.length)
+                    ],
+                  }}
+                >
+                  <h2>{produto.nome}</h2>
+                  <Link to={`/products/${produto.id}`}>
+                    <img src={produto.foto} alt={produto.nome} />
+                  </Link>
+                  <p>{`RS ${produto.preco},00`}</p>
+                  <Link to={`/products/${produto.id}`}>
+                    <button>Saiba Mais</button>
+                  </Link>
+                </DivEspecial>
+              ))}
+            </div>
+  
+            {total === 0 && <div className="loading">No products found</div>}
+  
+            
+          </main>
+        )}
+  
+        {/* {Error && <div className="loading">Error fetching products: {Error.message}</div>} */}
         <Pagination
-          limit={limit}
-          total={total}
-          offset={offset}
-          setOffset={setOffset}
-        />
-      </ProductsDiv>
-      <Footer />
+              limit={limit}
+              total={total}
+              offset={offset}
+              setOffset={setOffset}
+            />
+            </ProductsDiv>
+        <Footer />
+      
     </>
   );
-};
+  
+}
 
 export default Products;

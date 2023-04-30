@@ -4,6 +4,7 @@ import { api } from '../../../../services/api';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import axios from "axios";
+import { UpdateProductPage } from './style';
 
 
 interface IProducts {
@@ -115,8 +116,9 @@ const UpdateProducts: FC = () => {
     }
 
     return (
-        <>
+        <UpdateProductPage>
             <form onSubmit={handleSubmit}>
+                <h2>Update a product</h2>
                 <label htmlFor="nome">nome:</label>
                 <input
                     type="text"
@@ -159,7 +161,7 @@ const UpdateProducts: FC = () => {
                 <NavLink to="/admin" ><button>back to panel</button></NavLink>
             </div>
 
-        </>
+        </UpdateProductPage>
 
     );
 };

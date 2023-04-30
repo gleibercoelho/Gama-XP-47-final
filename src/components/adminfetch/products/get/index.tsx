@@ -71,7 +71,7 @@ const ProductsTable: FC = () => {
                             <td>{product.nome}</td>
                             <td><img src={product.foto} /></td>
                             <td>{product.preco}</td>
-                            <td>{product.descricao}</td>
+                            <td className='descricao'>{product.descricao}</td>
                             <td>{product.categoria}</td>
                             <td>{formatDate(product.createdAt)}</td>
                             <td>{formatDate(product.updatedAt)}</td>

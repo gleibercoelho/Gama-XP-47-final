@@ -5,6 +5,11 @@ export const CheckoutPage = styled.div`
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
+    background-color: blue;
+    max-width: 95vw;
+    border-radius: 20px;
+    margin: 20px;
+
 
     div.botoes {
     display: flex;
@@ -13,13 +18,16 @@ export const CheckoutPage = styled.div`
     margin: 20px;
     
     button {
-      background-color: #3f51b5;
+      background-color: orange;
       color: #fff;
       border: none;
-      border-radius: 4px;
+      border-radius: 10px;
       padding: 0.5rem 1rem;
       cursor: pointer;
       transition: background-color 0.3s ease-in-out;
+      width: 170px;
+      font-weight: 600;
+      font-size: 20px;
 
       
       &:hover {
@@ -33,15 +41,25 @@ export const CheckouDiv = styled.div`
     display: flex;
     flex-direction:column;
     flex-wrap: nowrap;    
-    max-width: 800px;
-    margin: 0 auto;
+    
+    
     padding: 1rem;
+    background-color: blue;
+    max-width: 95vw;
+    border-radius: 20px;
+    margin-top: 20px;
     
 
   div.title{
     display: flex;
     flex-direction: column;
     align-items: center;
+    h1 {
+    font-size: 2.3rem;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    color: white;
+  }
   h2 {
     font-size: 2rem;
     margin-bottom: 1rem;
@@ -50,51 +68,59 @@ export const CheckouDiv = styled.div`
 }
   
   
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 1rem;
-    
-    th, td {
-      border: 1px solid #ddd;
-      padding: 0.5rem;
-      text-align: center;
-    }
-    
-    th {
-      background-color: #f2f2f2;
-    }
-    
-    tbody tr:nth-child(even) {
-      background-color: #f2f2f2;
-      
-    }
-    
-    img {
-      max-width: 80px;
-      height: auto;
-    }
-    
-    table {
-      width: 100%;
-      
-      th, td {
-        border: none;
-        padding: 10px;
-        text-align: center;
-      }
-      
-      th {
-        font-weight: bold;
-      }
-      
-      td {
-        img {
-          max-width: 50px;
-        }
-      }
-    }
-  }
+table {
+            width: 90vw;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+            color: black;
+            background-color: grey;
+            
+            th, td {
+              border: 1px solid #ddd;
+              padding: 0.5rem;
+              text-align: center;
+              
+            }
+            
+            th {
+              background-color: grey;
+              color: #fff;
+              background-color: black;
+              position: sticky;
+              top: 0;
+            }
+            
+            tbody tr:nth-child(even) {
+              background-color: #f2f2f2;
+            }
+            
+            img {
+              max-width: 80px;
+              height: auto;
+            }
+            
+            table {
+              width: 100%;
+              margin-bottom: 0;
+              background-color: grey;
+              
+              th, td {
+                border: none;
+                padding: 10px;
+                text-align: center;
+              }
+              
+              th {
+                font-weight: bold;
+              }
+              
+              td {
+                img {
+                  max-width: 50px;
+                }
+              }
+            }
+          }
   
  
 `;

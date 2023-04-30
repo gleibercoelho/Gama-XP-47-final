@@ -4,20 +4,24 @@ import styled from "styled-components";
 export const ContainerCard = styled(Link)`
 display: flex;
 
-    width: 270px;
-    height: 150px;    
+    width: 16.875rem;
+    height: 9.375rem;    
     text-decoration: none;
     background: linear-gradient(90deg, rgba(255,255,255,0.5) 10%, rgba(184,181,181,0.6) 40%);
     background: green;
-    border-radius: 20px;    
-    margin: 10px;
+    border-radius: 1.25rem;    
+    margin: .625rem;
     
     
         
     
     &:hover {
-       
+       transform: scale(1.1)
     }
+`;
+
+export const Clearfix = styled.div`
+clear: both;
 `;
 
 export const Content = styled.div`
@@ -29,31 +33,43 @@ align-items: center;
 
     h5 {
         font-weight: 700;
-        font-size: 1.25rem; 
+        font-size: 1.25rem;
+        position: relative; 
         color: white;
         z-index: 1;
-        margin-bottom: 100px;
-
-        
+        bottom: 7.5rem;
+        left: 3.125rem;
+        pointer-events: none;
+        cursor: default; 
+        -webkit-text-stroke: .0063rem black;
         
     }
+
     p {
+        
         font-weight: 700;
         font-size: 1rem;
+        position: relative;
         color: black;
         z-index: 1;
-        margin-left: 160px;
-        margin-bottom: 150px;
-        
-        
-        
+        left: 8.125rem;
+        bottom: 2.5rem;
+        pointer-events: none; 
+        cursor: default;   
+        -webkit-text-stroke: .0063rem white;    
     }
+
     img{
-        width: 140px;
-        height: 150px;        
+        width: 8.75rem;
+        height: 9.375rem;        
         object-fit: contain;
         z-index: 0;
         position: relative;
-        top: 150px;
+        top: 1.5625rem;
+        left: 40px;
+        pointer-events: none;
+        cursor: default;
     }
 `;
+
+  

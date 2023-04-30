@@ -7,6 +7,11 @@ import { removeUser } from '../../store/modules/user';
 import { AnyAction } from 'redux';
 import { useNavigate } from 'react-router-dom';
 import { UserDivMaster } from './style';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import { useRef } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -107,6 +112,7 @@ const ProfilePage = () => {
         }
       );
       console.log(response.statusText);
+      toast.success("Dados atualizados")
       if (newName || newEmail) {
         // Dispatch the action to update the user in Redux store
         dispatch(updateUser(userId, newName || user?.nome || '', newEmail || user?.email || ''));
@@ -117,12 +123,12 @@ const ProfilePage = () => {
       setShowUpdateForm(false);
     } catch (error) {
       console.error(error);
+      toast.error("algo deu errado")
     }
   };
 
 
   //get pedidos
-
 
 
   const fetchOrders = () => {
@@ -135,7 +141,7 @@ const ProfilePage = () => {
       .then((response) => response.json())
       .then((data) => {
         setOrders(data);
-        setShowTable(true); // show the table after orders are fetched
+        setShowTable((showTable) => !showTable); // toggle the value of showTable
       })
       .catch((error) => console.log(error));
   };
@@ -155,35 +161,49 @@ const ProfilePage = () => {
     }));
   };
 
-  const deleteProfileButton = document.getElementById('delete-profile-button');
-  if (deleteProfileButton) {
-    deleteProfileButton.addEventListener('click', () => {
-      const confirmed = confirm('Are you sure you want to delete your profile? This action cannot be undone.');
-      if (confirmed) {
-        api.delete(`http://localhost:3000/usuarios/${userId}`, {
-          method: 'DELETE',
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          }
-        })
-          .then(response => {
-            if (response.status = 204) {
-              alert("User profile deleted successfully");
-              handleLogout();
-              navigate('/login');
+  const deleteProfileButton = useRef(null);
 
-            } else {
-              // Handle error response
-              console.error('Error deleting user profile');
-            }
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      }
+  const handleDeleteProfile = () => {
+    confirmAlert({
+      title: 'Confirm to delete',
+      message: 'Are you sure you want to delete your profile? This action cannot be undone.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {
+            api.delete(`http://localhost:3000/usuarios/${userId}`, {
+              method: 'DELETE',
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              }
+            })
+              .then(response => {
+                if (response.status = 204) {
+                  toast.success("User profile deleted successfully");
+                  
+                  setTimeout(() => {
+                    handleLogout();
+                    navigate('/login');
+                  }, 3000); 
+                } else {
+                  // Handle error response
+                  console.error('Error deleting user profile');
+                  toast.error('Error deleting user profile');
+                }
+              })
+              .catch(error => {
+                console.error(error);
+              });
+          }
+        },
+        {
+          label: 'No',
+          onClick: () => { }
+        }
+      ]
     });
-  }
+  };
 
   return (
     <>
@@ -193,13 +213,25 @@ const ProfilePage = () => {
           <div>
             <h1>Nome: {fetchedUserData?.nome}</h1>
             <p>Email: {fetchedUserData?.email}</p>
+            <button onClick={() => {
+              setShowUpdateForm(!showUpdateForm);
+              setShowTable(false);
+            }}>Atualizar meu perfil</button>
+            <button onClick={() => {
+              fetchOrders();
+              setShowUpdateForm(false);
+            }}>Minhas Compras</button>
+
+            <button ref={deleteProfileButton} id="delete-profile-button" onClick={handleDeleteProfile}>
+              Delete Profile
+            </button>
             {showUpdateForm && (
               <form onSubmit={handleSubmit}>
-                <label htmlFor="name">Name:</label>
+                <label htmlFor="name">Nome:</label>
                 <input type="text" id="name" value={newName} onChange={(event) => setNewName(event.target.value)} />
                 <label htmlFor="email">Email:</label>
                 <input type="email" id="email" value={newEmail} onChange={(event) => setNewEmail(event.target.value)} />
-                <label htmlFor="password">Password:</label>
+                <label htmlFor="password">Senha:</label>
                 <input type="password" id="password" value={newPassword} onChange={(event) => setNewPassword(event.target.value)} />
                 <button /* onClick={() => {
                   fetchUser();
@@ -209,9 +241,7 @@ const ProfilePage = () => {
                 } */ type="submit">Atualizar!</button>
               </form>
             )}
-            <button onClick={() => setShowUpdateForm(!showUpdateForm)}>Atualizar meu perfil</button>
-            <button onClick={fetchOrders}>Minhas Compras</button>
-            <button id='delete-profile-button'>deletar minha conta</button>
+
             <div id="pedido-container">
               {showTable && ( // conditionally render the table HTML
                 <table>
@@ -265,7 +295,7 @@ const ProfilePage = () => {
               )}
             </div>
             <div>
-              
+
             </div>
           </div>
         ) : (
@@ -273,6 +303,7 @@ const ProfilePage = () => {
         )}
       </UserDivMaster>
       <Footer />
+      <ToastContainer />
     </>
   );
 

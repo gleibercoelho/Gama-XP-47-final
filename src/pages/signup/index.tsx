@@ -6,6 +6,8 @@ import {BannerSignIn, SignInDivMaster, MainDivSignIn} from "./style"
 import logo from "../../assets/images/logo.png"
 import { LockKeyOpen } from "@phosphor-icons/react";
 import gameboy from "../../assets/images/gameboy.png"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function SignUp() {
@@ -22,21 +24,26 @@ export default function SignUp() {
         api.post('http://localhost:3000/usuarios', user)
             .then(response => {
                 if (response.status = 201) {
-                    alert('Sign up successful!');
-                    navigate('/login');
+                    toast.success('Sign up successful!');
+                    setTimeout(() => {
+                        
+                        navigate('/login');
+                      }, 2000);
                 } else {
                     throw new Error('Error signing up');
+                    toast.error('Error signing up');
                 }
             })
             .catch(error => {
                 console.error(error);
+                toast.error('Error signing up');
             });
     };
 
     return (
         <>
         
-        
+        <ToastContainer />
         
         <Header/>
         <MainDivSignIn>

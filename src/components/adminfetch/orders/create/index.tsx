@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../../../services/api";
 import { useEffect } from "react";
+import { CreateOrderPage } from "./style";
+import { NavLink } from "react-router-dom";
 
 function CreateOrder() {
   const [productList, setProductList] = useState([
@@ -65,7 +67,7 @@ function CreateOrder() {
   };
 
   return (
-    <div>
+    <CreateOrderPage>
       <h2>Create Order</h2>
       {errorMessage && <p>{errorMessage}</p>}
       <form onSubmit={handleSubmit}>
@@ -114,7 +116,8 @@ function CreateOrder() {
         </div>
         <button type="submit">Create Order</button>
       </form>
-    </div>
+      <NavLink to="/admin" ><button>Painel de Controle</button></NavLink>
+    </CreateOrderPage>
   );
 }
 

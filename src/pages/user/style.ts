@@ -24,20 +24,29 @@ form {
 display: flex;
 flex-direction: column;
 align-items: center;
-margin-bottom: 2rem;
+margin-top: 2rem;
+font-family: 'roboto', 'sans-serif';
 }
 label {
     font-size: 1.5rem;
     color: #222;
-    margin-bottom: 0.5rem;
+    margin-top: .9375rem;
+    margin-bottom: .5rem;
+    padding-right: 13.75rem;
+    color: black;
+    font-weight: 600;
+   
   }
   
   input {
-    padding: 0.5rem;
+    padding: .5rem;
     margin-bottom: 1rem;
-    border: 2px solid #ccc;
-    border-radius: 5px;
+    border: .125rem solid #ccc;
+    border-radius: .3125rem;
     font-size: 1.5rem;
+    padding-left: .9375rem;
+    color: black;
+    font-weight: 500;
     
     &:focus {
       outline: none;
@@ -46,12 +55,12 @@ label {
   }
   
   button {
-    padding: 0.5rem 2rem;
+    padding: .5rem 2rem;
     font-size: 1.5rem;
-    background-color: #0077FF;
-    color: #fff;
+    background-color: orange;
+    color: black;
     border: none;
-    border-radius: 5px;
+    border-radius: .3125rem;
     cursor: pointer;
     transition: background-color 0.2s ease;
     
@@ -60,15 +69,17 @@ label {
     }
   }
   button {
-    padding: 0.5rem 2rem;
+    padding: .5rem 2rem;
     font-size: 1.5rem;
-    background-color: #0077FF;
-    color: #fff;
+    background-color: blue;
+    color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: .3125rem;
     cursor: pointer;
     transition: background-color 0.2s ease;
-    margin-right: 1rem;
+    margin-right: 4rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 
     &:hover {
         background-color: #0057C1;
@@ -93,19 +104,24 @@ label {
         }
 
         table {
-            width: 100%;
+            width: 90vw;
             border-collapse: collapse;
             margin-bottom: 1rem;
+            color: black;
             
             th, td {
-              border: 1px solid #ddd;
-              padding: 0.5rem;
+              border: .0625rem solid #ddd;
+              padding: .5rem;
               text-align: center;
+              
             }
             
             th {
               background-color: grey;
               color: #fff;
+              background-color: black;
+              position: sticky;
+              top: 0;
             }
             
             tbody tr:nth-child(even) {
@@ -113,17 +129,18 @@ label {
             }
             
             img {
-              max-width: 80px;
+              max-width: 5rem;
               height: auto;
             }
             
             table {
               width: 100%;
               margin-bottom: 0;
+              background-color: grey;
               
               th, td {
                 border: none;
-                padding: 10px;
+                padding: .625rem;
                 text-align: center;
               }
               
@@ -133,10 +150,52 @@ label {
               
               td {
                 img {
-                  max-width: 50px;
+                  max-width: 3.125rem;
                 }
               }
             }
           }
           
+
+@media only screen and (max-width: 75rem)  {
+  
+ 
+    max-width: 90%;
+    div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: nowrap;
+    
+
+}
+   
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  p {
+    font-size: 1.25rem;
+  }
+
+   form label {
+    font-size: 1.25rem;
+    padding-right: 6.875rem;
+  }
+
+  form input {
+    font-size: 1.25rem;
+    padding-left: 0.625rem;
+  }
+
+   form button {
+    font-size: 1.25rem;
+    padding: 0.5rem 1.5rem;
+  }
+
+   form button:last-child {
+    margin-right: 0;
+    margin-bottom: 1.5rem;
+  }
+}
 `;

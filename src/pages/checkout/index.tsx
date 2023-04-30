@@ -71,12 +71,15 @@ export default function CheckOut() {
 
     // render the checkout page with order data
     return (
+        <>
+        <Header />
         <CheckoutPage>
-            <Header />
+            
             <CheckouDiv>
                 {order ? (
                     <div className="title">
-                        <h2>Detalhes do pedido</h2>
+                        <h1> Parabéns! Você finalizou a sua compra!</h1>
+                        <h2>Detalhes do pedido:</h2>
                         <table>
                             <thead>
                                 <tr>
@@ -128,11 +131,13 @@ export default function CheckOut() {
                 )}
             </CheckouDiv>
             <div className="botoes">
-            <NavLink to="/user"> <button>perfil</button> </NavLink>
+            <NavLink to="/user"> <button>Perfil</button> </NavLink>
                 <NavLink to="/"> <button>Voltar para loja</button> </NavLink>
                 
             </div>
-            <Footer />
+           
         </CheckoutPage>
+         <Footer />
+         </>
     );
 }

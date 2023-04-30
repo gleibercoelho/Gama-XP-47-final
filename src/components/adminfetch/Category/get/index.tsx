@@ -63,7 +63,7 @@ function CategoryList() {
   return (
     <CategoriasTable>
       <div>
-        <h2>Categories</h2>
+        
         <table>
           <thead>
             <tr>
@@ -86,8 +86,9 @@ function CategoryList() {
           </tbody>
         </table>
         <div>
+          <h2>Create Category</h2>
           <input type="text" value={newCategoryName} onChange={(event) => setNewCategoryName(event.target.value)} />
-          <button onClick={handleCreate}>Create Category</button>
+          <button onClick={handleCreate}>Create</button>
         </div>
       </div>
     </CategoriasTable>

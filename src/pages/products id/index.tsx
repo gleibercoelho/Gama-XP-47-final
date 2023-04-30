@@ -6,7 +6,10 @@ import Footer from "../../components/footer";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/modules/cart";
 import { DivMaster } from "./style";
-import { FotoProductDiv } from "./style";
+import { FotoProductDiv, LoadingMessage, ErrorMessage } from "./style";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 interface Produto {
   nome: string;
@@ -20,12 +23,20 @@ interface Produto {
 const ProductDetail = () => {
   const { productId } = useParams<{ productId: string }>();
   const [product, setProduct] = useState<Produto | null>(null);
+  const [fetchError, setFetchError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const result = await api.get(`http://localhost:3000/produtos/${productId}`);
-      setProduct(result.data);
+      try {
+        const result = await api.get(`http://localhost:3000/produtos/${productId}`);
+        setProduct(result.data);
+        setIsLoading(false);
+      } catch (error) {
+        setFetchError(true);
+        setIsLoading(false);
+      }
     };
     fetchProduct();
   }, [productId]);
@@ -33,16 +44,35 @@ const ProductDetail = () => {
   const handleAddToCart = () => {
     if (product) {
       dispatch(addToCart(product));
+      toast.success('Produto adicionado ao carrinho!');
     }
   };
+  
 
-  if (!product) {
-    return <div>Loading...</div>;
+  if (isLoading) {
+    return (
+      <>
+        <Header />
+        <LoadingMessage>Loading...</LoadingMessage>
+        <Footer />
+      </>
+    );
+  }
+
+  if (fetchError) {
+    return (
+      <>
+        <Header />
+        <ErrorMessage>Falha ao carregar produto</ErrorMessage>
+        <Footer />
+      </>
+    );
   }
 
   return (
     <>
       <Header />
+      <ToastContainer />
       <DivMaster>
         <FotoProductDiv >
           <div className="thumbnails">
@@ -51,16 +81,16 @@ const ProductDetail = () => {
             <img src={product.foto} alt={product.nome} />
           </div>
           <img className="main-photo" src={product.foto} alt={product.nome} />
-
-
         </FotoProductDiv>
         <div className="infoDiv">
           <h2>{product.nome}</h2>
-
-          <p>Detalhes do produto: Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Illum ratione esse aliquid perferendis ea accusantium
-            sapiente magnam. Voluptate quo et maiores. Molestiae facere exercitationem
-            recusandae vel blanditiis voluptatum suscipit  {product.descricao}</p>
+          <p>
+            Detalhes do produto: Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Illum ratione esse aliquid perferendis ea
+            accusantium sapiente magnam. Voluptate quo et maiores. Molestiae
+            facere exercitationem recusandae vel blanditiis voluptatum suscipit{" "}
+            {product.descricao}
+          </p>
           <div className="priceDiv">
             <h3>R$ {product.preco},00</h3>
             {/* add any other product details you want to display */}

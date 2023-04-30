@@ -1,11 +1,10 @@
 import styled from "styled-components";
 
-export const TabelaProdutos = styled.div`
-
+export const UsersTable = styled.div`
 margin: 30px;
 
 table {
-            width: 95vw;
+            width: 90vw;
             border-collapse: collapse;
             margin-bottom: 1rem;
             color: black;
@@ -24,8 +23,6 @@ table {
               background-color: black;
               position: sticky;
               top: 0;
-            }
-          
             }
             
             tbody tr:nth-child(even) {
@@ -59,5 +56,4 @@ table {
               }
             }
           }
-  
-`
+          `

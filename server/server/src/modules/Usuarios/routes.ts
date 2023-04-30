@@ -7,7 +7,7 @@ import Auth from "../../middlewares/authToken";
 const usuarioRoutes = Router();
 
 
-usuarioRoutes.get("/usuarios",Auth.verifyAdmin, UsuarioController.getAll);
+usuarioRoutes.get("/usuarios",Auth.verifyUser, UsuarioController.getAll);
 usuarioRoutes.get("/usuarios/:id",Auth.verifyUser,UsuarioValidation.getOne,UsuarioController.getOne);
 usuarioRoutes.post("/usuarios",UsuarioValidation.create, UsuarioController.create);
 usuarioRoutes.post("/usuariosadmin",Auth.verifyAdmin, UsuarioValidation.create, UsuarioController.createAdmin);

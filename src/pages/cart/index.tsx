@@ -9,6 +9,9 @@ import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 import { DivMasterCart } from "./style";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 interface Produto {
@@ -45,7 +48,8 @@ function CartPage() {
 
   async function handleCheckout(coupon: string | undefined) {
     await sendCartData(cart, token, coupon);
-    console.log(token);
+   
+    
   }
 
   function Checkout() {
@@ -54,16 +58,30 @@ function CartPage() {
   }
 
   async function sendCartData(cart: RootState["cart"], token: string, coupon?: string) {
-    const requestBody = {
+    let requestBody = {
       listaprodutos: cart.cartItems.map(item => {
         return { idproduto: item.id, quantidade: item.cartQuantity };
       }),
     };
-
+  
     if (coupon) {
-      requestBody["nomeCupom"] = coupon;
+      try {
+        const response = await api.get(`http://localhost:3000/cupons?nome=${coupon}`);
+        if (response.status === 200 && Array.isArray(response.data) && response.data.length > 0 && response.data.some(item => item.nome === coupon)) {
+          console.log("Coupon found");
+          requestBody["nomeCupom"] = coupon;
+        } else {
+          console.log("Coupon not found");
+          toast.error("Cupom inválido. Digite um cupom válido ou limpe o campo.");
+          return;
+        }
+      } catch (error) {
+        console.log(error);
+        alert("Error verifying coupon");
+        return;
+      }
     }
-
+  
     try {
       const response = await api.post("http://localhost:3000/pedidos",
         requestBody,
@@ -77,18 +95,24 @@ function CartPage() {
         if (response.status = 201) {
           const pedidoId = response.data[0].id;
           console.log(pedidoId);
-          alert('checkout successful!');
-          handleClearCart();
-          navigate('/checkout' + '?id=' + `${pedidoId}`);
-        } else {
+          toast.success('Compra efetuada!');
+          
+          setTimeout(() => {
+            handleClearCart();
+            navigate('/checkout' + '?id=' + `${pedidoId}`);
+          }, 3000); 
+        }
+         else {
           throw new Error('Error signing up');
         }
       });
       console.log(response.data);
     } catch (error) {
       console.log(error.response.data);
+      toast.error('É preciso logar pra fazer checkout');
     }
   };
+  
 
 
 
@@ -129,30 +153,34 @@ function CartPage() {
 
 
   const [couponError, setCouponError] = useState(null);
+const [couponDetails, setCouponDetails] = useState(null);
 
+async function handleVerifyCoupon(coupon: string) {
+  event?.preventDefault();
 
-  async function handleVerifyCoupon(coupon: string) {
-    event?.preventDefault();
+  try {
+    const response = await api.get(`http://localhost:3000/cupons?nome=${coupon}`);
 
-    try {
-      const response = await api.get(`http://localhost:3000/cupons?nome=${coupon}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (response.ok) {
-        console.log("Coupon found");
-        setCouponError(null);
-      } else {
-        console.log("Coupon not found");
-        setCouponError("Invalid coupon");
-      }
-    } catch (error) {
-      console.log(error);
-      setCouponError("Error verifying coupon");
+    if (response.status === 200 && Array.isArray(response.data) && response.data.length > 0 && response.data.some(item => item.nome === coupon)) {
+      console.log("Coupon found");
+      setCouponError(null);
+      setCouponDetails(response.data.find(item => item.nome === coupon)); // Set the coupon details state with the matching item from the response array
+    } else {
+      console.log("Coupon not found");
+      setCouponError("Cupom não encontrado");
+      setCouponDetails(null); // Reset the coupon details state to null if the coupon is invalid
     }
-  };
+  } catch (error) {
+    console.log(error);
+    setCouponError("Error verifying coupon");
+    setCouponDetails(null); // Reset the coupon details state to null if there's an error
+  }
+};
+
+
+
+
+
 
   return (
     <>
@@ -190,7 +218,7 @@ function CartPage() {
                       <td>{product.nome}</td>
                       <td>R${unitPrice.toFixed(2)}</td>
                       <td>
-                        <button  onClick={() => handleDecrease(product)}>
+                        <button onClick={() => handleDecrease(product)}>
                           -
                         </button>
                         {item.cartQuantity}
@@ -227,11 +255,17 @@ function CartPage() {
               <button type="button" onClick={() => handleVerifyCoupon(coupon)}>
                 Verificar
               </button>
+              {couponDetails && (
+                <div>
+                  <p className="rightCupom"> Cupom aplicado! Desconto de {couponDetails.desconto} {couponDetails.descontoporcentagem ? '%' : '.00 reais'}</p>
+                </div>
+              )}
               {couponError && <p>{couponError}</p>}
             </form>
 
 
-            <div  className="keep-shopping">
+
+            <div className="keep-shopping">
               <button onClick={handleClearCart}>Limpar carinho</button>
               <NavLink to="/products"> <button>Continuar Comprando</button></NavLink>
               <button onClick={() => handleCheckout(coupon)}>Check out</button>
@@ -240,6 +274,7 @@ function CartPage() {
         )}
       </DivMasterCart>
       <Footer />
+      <ToastContainer />
     </>
   );
 }

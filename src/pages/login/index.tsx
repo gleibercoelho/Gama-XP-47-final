@@ -11,6 +11,8 @@ import { LoginDivMaster, BannerLogin, MainDivLogin } from "./style";
 import smartwatch from "../../assets/images/smartwatch.png";
 import {Key, SignIn } from "@phosphor-icons/react";
 import logo from "../../assets/images/logo.png"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -57,12 +59,22 @@ export default function Login(props: LoginProps) {
         nome: data.nome,
         id: data.id,
       }))
-      navigate("/")
+      toast.success('Login realizado com sucesso!');
+    setTimeout(() => {
+      navigate("/");
+    }, 4000);
       console.log("logado com sucesso");
+      
     } else {
-      // Handle login error
       console.error("Failed to login:", data.error);
+      
+      if (response.status === 401) {
+        toast.error('Email e/ou senha inválido(s).');
+      } else {
+        toast.error('Não foi possível conectar ao servidor.');
+      }
     }
+    
   }
 
   return (
@@ -111,6 +123,7 @@ export default function Login(props: LoginProps) {
       </BannerLogin>
       </MainDivLogin>
       <Footer />
+      <ToastContainer />
 
     </>
   );

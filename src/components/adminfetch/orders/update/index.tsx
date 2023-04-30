@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { api } from "../../../../services/api";
 import { useSelector } from "react-redux";
+import { UpdateOrderPage } from "./style";
+import { NavLink } from "react-router-dom";
 
 function UpdateOrder() {
   const { id } = useParams();
@@ -53,8 +55,8 @@ function UpdateOrder() {
   };
 
   return (
-    <div>
-      <h2>Edit Pedido {id}</h2>
+    <UpdateOrderPage>
+      <h2>Edit Order {id}</h2>
       <form onSubmit={handleSubmit}>
         <label>
           Valor:
@@ -66,7 +68,8 @@ function UpdateOrder() {
         </label>
         <button type="submit">Submit</button>
       </form>
-    </div>
+      <NavLink to="/admin" ><button>Painel de Controle</button></NavLink>
+    </UpdateOrderPage>
   );
 }
 

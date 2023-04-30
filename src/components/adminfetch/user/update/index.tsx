@@ -2,6 +2,8 @@ import { FC, useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { api } from '../../../../services/api';
 import { useSelector } from 'react-redux';
+import { UpdateUserPage } from './style';
+import { NavLink } from 'react-router-dom';
 
 
 interface User {
@@ -92,7 +94,9 @@ const UpdateUser: FC = () => {
   }
 
   return (
+  <UpdateUserPage>
     <form onSubmit={handleSubmit}>
+      <h2>Update a  user</h2>
       <label htmlFor="nome">nome:</label>
       <input
         type="text"
@@ -120,6 +124,8 @@ const UpdateUser: FC = () => {
       <br />
       <button type="submit">Update</button>
     </form>
+    <NavLink to="/admin" ><button>Painel de Controle</button></NavLink>
+    </UpdateUserPage>    
   );
 };
 

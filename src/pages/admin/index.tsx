@@ -11,6 +11,7 @@ import CategoryList from '../../components/adminfetch/Category/get';
 import CouponList from '../../components/adminfetch/cupon/get';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { AdminDivMaster } from './style';
 
 interface User {
   id: number;
@@ -44,14 +45,16 @@ const Admin: FC = () => {
   return (
     <>
       <Header/>
+      <AdminDivMaster>
       <aside>
-        <ul>
-          <li><a onClick={() => handleLinkClick("categorias")}>Categorias</a></li>
-          <li><a onClick={() => handleLinkClick("cupons")}>Cupons</a></li>
-          <li><a onClick={() => handleLinkClick("pedidos")}>Pedidos</a></li>
-          <li><a onClick={() => handleLinkClick("produtos")}>Produtos</a></li>
-          <li><a onClick={() => handleLinkClick("usuarios")}>Usuários</a></li>
-        </ul>
+      <ul>
+  <li><a className={activeTab === "categorias" ? "active" : ""} onClick={() => handleLinkClick("categorias")}>Categorias</a></li>
+  <li><a className={activeTab === "cupons" ? "active" : ""} onClick={() => handleLinkClick("cupons")}>Cupons</a></li>
+  <li><a className={activeTab === "pedidos" ? "active" : ""} onClick={() => handleLinkClick("pedidos")}>Pedidos</a></li>
+  <li><a className={activeTab === "produtos" ? "active" : ""} onClick={() => handleLinkClick("produtos")}>Produtos</a></li>
+  <li><a className={activeTab === "usuarios" ? "active" : ""} onClick={() => handleLinkClick("usuarios")}>Usuários</a></li>
+</ul>
+
       </aside>
       <main>
         <h1>Painel de controle</h1>
@@ -101,6 +104,7 @@ const Admin: FC = () => {
           
                 </div>
             </main>
+        </AdminDivMaster>
         </>
     )
 }

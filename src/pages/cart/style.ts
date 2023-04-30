@@ -16,7 +16,10 @@ export const DivMasterCart = styled.div`
     p{
       font-size: 30px;
       margin: 20px;
+      color: red;
     }
+
+ 
   }
 
   h1 {
@@ -73,14 +76,37 @@ table tbody tr:hover {
   }
 
   .total {
+    
     font-weight: bold;
     text-align: right;
+    color: red;
+    
+  }
+  tfoot{
+    
   }
 
   form {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+    font-family: 'roboto', sans-serif;
+
+    p{
+      color: red;
+      margin-left: 20px;
+    }
+    
+    p.rightCupom{
+      color: rgb(37, 190, 68);
+      margin-left: 20px;
+    }
+    button{
+      background-color: rgb(37, 190, 68);
+      color: white;
+      font-weight: 600;
+      font-family: 'roboto', sans-serif;
+    }
   }
 
   label {
@@ -155,6 +181,13 @@ table tbody tr:hover {
   .keep-shopping a:hover {
     background-color: pink;
     
+  }
+
+  button.backStore{
+    background-color: blue;
+    color: white;
+    font-family: 'roboto', sans-serif;
+    font-weight: 600;
   }
 
   img{

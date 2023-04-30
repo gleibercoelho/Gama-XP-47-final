@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { api } from '../../../../services/api';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import {CreateProductPage} from "./style";
+import { NavLink } from 'react-router-dom';
 
 interface ProductForm {
     nome: string;
@@ -70,8 +72,10 @@ const ProductsCreate: FC = () => {
 
 
     return (
+        <CreateProductPage>
         <form onSubmit={handleSubmit}>
             <div>
+            <h2>Create a product</h2>
                 <label htmlFor="name">Name:</label>
                 <input type="text" name="nome" id="name" value={productForm.nome} onChange={handleChange} required />
             </div>
@@ -94,6 +98,8 @@ const ProductsCreate: FC = () => {
             </div>
             <button type="submit">Create product</button>
         </form>
+        <NavLink to="/admin" ><button>Painel de Controle</button></NavLink>
+        </CreateProductPage>
     );
 };
 

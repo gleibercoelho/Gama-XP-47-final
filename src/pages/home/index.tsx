@@ -19,23 +19,37 @@ import Footer from "../../components/footer";
 export function Home() {
 
     const [responseArray, setResponseArray] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
         const fetchData = async () => {
+            setIsLoading(true);
             try {
                 const response = await fetch("http://localhost:3000/produtos");
                 const data = await response.json();
                 setResponseArray(data);
-                console.log(responseArray);
+                setIsLoading(false);
             } catch (error) {
-                console.error(error);
+                setIsLoading(false);
+                setErrorMessage(`Error: falha ao carregar os dados`);
+                console.error(new Error(`Error: ${error.message}`));
             }
         };
 
         fetchData();
     }, []);
 
+    if (isLoading) {
+        return <div className="loading"><h2>Loading...</h2></div>;
+    }
+
+    if (console && console.error) {
+        console.error(new Error(`Error: ${error.message}`));
+    }
+
     const colors = ["rgb(37, 190, 68)", "red", "orange", "#f5de0c", "pink", "blue"];
+
 
     return (
         <>
@@ -57,23 +71,31 @@ export function Home() {
 
                 </ContentCards>
                 <Vitrine>
-                    <div><h1>BEST SELLER PRODUCTS</h1>
-                        <span>BUY IT NOW</span></div>
-                    <section>
-                        {responseArray.slice(0, 8).map((item: ResponseObject) => (
-                            <Card key={item.id} style={{ backgroundColor: colors[Math.floor(Math.random() * colors.length)] }}
-                             
-                               
-                                id={item.id}
-                                nome={item.nome}
-                                preco={`R$ ${item.preco} .00 ` }
-                                goToUrl={`/products/${item.id}`}
-                                img={item.foto}
-                            />
-                        ))}
-
-
-                    </section>
+                    <div>
+                        <h1>BEST SELLER PRODUCTS</h1>
+                        <span>BUY IT NOW</span>
+                    </div>
+                    {isLoading ? (
+                        <div className="loading"><h2>Loading products...</h2></div>
+                    ) : errorMessage ? (
+                        <div className="loading"><h2>{errorMessage}</h2></div>
+                    ) : (
+                        <section>
+                            {responseArray.slice(0, 8).map((item: ResponseObject) => (
+                                <Card
+                                    key={item.id}
+                                    style={{
+                                        backgroundColor: colors[Math.floor(Math.random() * colors.length)],
+                                    }}
+                                    id={item.id}
+                                    nome={item.nome}
+                                    preco={`R$ ${item.preco}.00 `}
+                                    goToUrl={`/products/${item.id}`}
+                                    img={item.foto}
+                                />
+                            ))}
+                        </section>
+                    )}
                 </Vitrine>
                 <Footer className="footerHome" />
             </ContainerHome>
