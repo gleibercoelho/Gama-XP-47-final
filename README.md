@@ -1,5 +1,6 @@
 
 # E-commerce
+![App Screenshot](https://github.com/gleibercoelho/Gama-XP-47-final/blob/master/src/assets/Screenshot/home.png)
 
 - en-US
 This was the site developed to complete the Gama Academy XP #47 fullstack course. The objective of the project is to create a complete e-commerce where the customer can register, browse the store, choose products, add products to their shopping cart, checkout, edit their own registration and view their purchase orders. In the admin panel or admin user can crud all available features.
