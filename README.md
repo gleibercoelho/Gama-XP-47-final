@@ -20,9 +20,9 @@ Esse foi site desenvolvido para conclusão do curso fullstack Gama Academy XP #4
 
 
 
-[![language count](https://img.shields.io/github/languages/count/gleibercoelho/Gama-XP-47-final?style=for-the-badge)]
+![language count](https://img.shields.io/github/languages/count/gleibercoelho/Gama-XP-47-final?style=for-the-badge)
 
-[![top language](https://img.shields.io/github/languages/top/gleibercoelho/Gama-XP-47-final)]
+![top language](https://img.shields.io/github/languages/top/gleibercoelho/Gama-XP-47-final)
 
 
 ## install
@@ -106,3 +106,5 @@ The backend of the project was developed by João Víctor Paes. To access its re
 ## Documentation API
 
 available at file:
+
+![App Screenshot](https://github.com/gleibercoelho/Gama-XP-47-final/blob/master/server/server/public/screenshots/image.png?raw=true)
