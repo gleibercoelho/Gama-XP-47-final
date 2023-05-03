@@ -107,4 +107,25 @@ The backend of the project was developed by João Víctor Paes. To access its re
 
 available at file:
 
-![App Screenshot](https://github.com/gleibercoelho/Gama-XP-47-final/blob/master/server/server/public/screenshots/image.png?raw=true)
+## Screenshots
+
+**Home**
+![App Screenshot](https://github.com/gleibercoelho/Gama-XP-47-final/blob/master/src/assets/Screenshot/home.png)
+
+**Showcase**
+![App Screenshot](https://github.com/gleibercoelho/Gama-XP-47-final/blob/master/src/assets/Screenshot/showcase.png)
+
+**Products details**
+![App Screenshot](https://github.com/gleibercoelho/Gama-XP-47-final/blob/master/src/assets/Screenshot/product%20details.png)
+
+**filter**
+![App Screenshot](https://github.com/gleibercoelho/Gama-XP-47-final/blob/master/src/assets/Screenshot/filter.png)
+
+**Cart**
+![App Screenshot](https://github.com/gleibercoelho/Gama-XP-47-final/blob/master/src/assets/Screenshot/cart.png)
+
+**Cart**
+![App Screenshot](https://github.com/gleibercoelho/Gama-XP-47-final/blob/master/src/assets/Screenshot/cart.png)
+
+**Admin Panel**
+![App Screenshot](https://github.com/gleibercoelho/Gama-XP-47-final/blob/master/src/assets/Screenshot/admin.png)
