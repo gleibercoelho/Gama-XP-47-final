@@ -123,8 +123,6 @@ available at file:
 **filter**
 ![App Screenshot](https://github.com/gleibercoelho/Gama-XP-47-final/blob/master/src/assets/Screenshot/filter.png)
 
-**Cart**
-![App Screenshot](https://github.com/gleibercoelho/Gama-XP-47-final/blob/master/src/assets/Screenshot/cart.png)
 
 **Cart**
 ![App Screenshot](https://github.com/gleibercoelho/Gama-XP-47-final/blob/master/src/assets/Screenshot/cart.png)
