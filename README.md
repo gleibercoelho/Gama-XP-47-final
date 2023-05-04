@@ -28,17 +28,17 @@ Esse foi site desenvolvido para conclusão do curso fullstack Gama Academy XP #4
 
 ## install
 
-Install ecommerce com npm on main page
+Install ecommerce com npm on main folder
 
 ```bash
-  npm install my-project
+  npm install 
   cd ecommerce
 ```
 after that, go to server file and do the same thing
 
 ```bash
   cd server
-  npm install my-project  
+  npm install 
 ```
 ## Deploy
 
