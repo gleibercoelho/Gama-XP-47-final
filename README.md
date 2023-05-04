@@ -105,9 +105,9 @@ The backend of the project was developed by João Víctor Paes. To access its re
 **database:** Mysql
 
 
-## Documentation API
+## Documentation API(Insomnia)
 
-available at file:
+available at file: https://github.com/gleibercoelho/Gama-XP-47-final/blob/master/server/server/Insomnia_2023-04-20.har
 
 ## Screenshots
 
