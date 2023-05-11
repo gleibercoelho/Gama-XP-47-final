@@ -24,6 +24,8 @@ Esse foi site desenvolvido para conclusão do curso fullstack Gama Academy XP #4
 ![language count](https://img.shields.io/github/languages/count/gleibercoelho/Gama-XP-47-final?style=for-the-badge)
 
 ![top language](https://img.shields.io/github/languages/top/gleibercoelho/Gama-XP-47-final)
+[![style: styled-components](https://img.shields.io/badge/style-%F0%9F%92%85%20styled--components-orange.svg?colorB=daa357&colorA=db748e)](https://github.com/styled-components/gleibercoelho/Gama-XP-47-final)
+
 
 
 ## install
